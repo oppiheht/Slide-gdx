@@ -10,22 +10,20 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class GameScreen extends ScreenAdapter {
 
    public static final int GRID_CELL = 32;
    private enum STATE {
-      PLAYING, GAME_OVER
+      TIMED_MODE, GAME_OVER
    }
-   private STATE state = STATE.PLAYING;
+   private STATE state = STATE.TIMED_MODE;
    
    private static final int MAP_SIZE = 12;
    private static final float WORLD_WIDTH = 13 * GRID_CELL;
    private static final float WORLD_HEIGHT = 20 * GRID_CELL;
+   private static final float TIMED_MODE_DURATION = 120L;
    
-   private Viewport viewport;
    private Camera camera;
    
    private SpriteBatch batch;
@@ -34,6 +32,7 @@ public class GameScreen extends ScreenAdapter {
    
    private GameMap map;
    private int score = 0;
+   private float timer = TIMED_MODE_DURATION;
    
    float inputDelay = .05f;
    float lastInputTime = 0f;
@@ -46,7 +45,6 @@ public class GameScreen extends ScreenAdapter {
       float sidePadding = (WORLD_WIDTH - (MAP_SIZE*GRID_CELL)) / 2F;
       camera.position.set(WORLD_WIDTH/2 - sidePadding, WORLD_HEIGHT/2, 0);
       camera.update();
-      viewport = new ScreenViewport(camera);
       shapeRenderer = new ShapeRenderer();
       map = new GameMap(MAP_SIZE);
    }
@@ -56,17 +54,17 @@ public class GameScreen extends ScreenAdapter {
       Gdx.gl.glClearColor(Color.BLUE.r, Color.BLUE.g, Color.BLUE.b, Color.BLUE.a);
       Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
       switch(state) {
-      case PLAYING: {
-         queryInput(delta);
+      case TIMED_MODE: {
+         queryGameInput(delta);
          drawDebug();
-         drawScore();
+         drawStatusText();
          checkLevelCompleted();
+         decrementTimer(delta);
+         break;
       }
-      break;
       case GAME_OVER:
-         map.createNewMap(MAP_SIZE);
-         score++;
-         state = STATE.PLAYING;
+         queryGameOverInput();
+         drawGameOver();
          break;
       }
 
@@ -74,12 +72,20 @@ public class GameScreen extends ScreenAdapter {
 
    private void checkLevelCompleted() {
       if (map.solved()) {
-         state = STATE.GAME_OVER;
+         map.createNewMap(MAP_SIZE);
+         score++;
       }
       
    }
    
-   private void queryInput(float delta) {
+   private void decrementTimer(float delta) {
+      timer -= delta;
+      if (timer < 0) {
+         state = STATE.GAME_OVER;
+      }
+   }
+   
+   private void queryGameInput(float delta) {
       lastInputTime -= delta;
       if (lastInputTime > 0) {
          return;
@@ -113,6 +119,16 @@ public class GameScreen extends ScreenAdapter {
       }
    }
    
+   private void queryGameOverInput() {
+      boolean resetPressed = Gdx.input.isKeyJustPressed(Input.Keys.R);
+      if (resetPressed) {
+         score = 0;
+         timer = TIMED_MODE_DURATION;
+         map.createNewMap(MAP_SIZE);
+         state = STATE.TIMED_MODE;
+      }
+   }
+   
    private void drawDebug() {
       shapeRenderer.setProjectionMatrix(camera.projection);
       shapeRenderer.setTransformMatrix(camera.view);
@@ -121,11 +137,32 @@ public class GameScreen extends ScreenAdapter {
       shapeRenderer.end();
    }
    
-   private void drawScore() {
+   private void drawStatusText() {
       batch.setProjectionMatrix(camera.projection);
       batch.setTransformMatrix(camera.view);
       batch.begin();
+      
+      drawScore();
+      drawTimer();
+      
+      batch.end();
+   }
+   
+   private void drawScore() {
       font.draw(batch, "Score: "+score, 75, WORLD_HEIGHT - 200);
+   }
+   
+   private void drawTimer() {
+      font.draw(batch, "Time Left:"+(int)timer, 75, WORLD_HEIGHT - 175);
+   }
+   
+   private void drawGameOver() {
+      batch.setProjectionMatrix(camera.projection);
+      batch.setTransformMatrix(camera.view);
+      batch.begin();
+      
+      font.draw(batch, "Game Over!", 100, WORLD_HEIGHT / 2);
+      
       batch.end();
    }
 }
