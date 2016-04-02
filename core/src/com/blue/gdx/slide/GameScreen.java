@@ -36,6 +36,7 @@ public class GameScreen extends ScreenAdapter {
    
    float inputDelay = .05f;
    float lastInputTime = 0f;
+   private TouchInputHandler touchInput;
    
    @Override
    public void show() {
@@ -47,6 +48,7 @@ public class GameScreen extends ScreenAdapter {
       camera.update();
       shapeRenderer = new ShapeRenderer();
       map = new GameMap(MAP_SIZE);
+      touchInput = new TouchInputHandler(map);
    }
 
    @Override
@@ -55,7 +57,8 @@ public class GameScreen extends ScreenAdapter {
       Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
       switch(state) {
       case TIMED_MODE: {
-         queryGameInput(delta);
+         queryKeyboardInput(delta);
+         touchInput.query();
          drawDebug();
          drawStatusText();
          checkLevelCompleted();
@@ -85,7 +88,7 @@ public class GameScreen extends ScreenAdapter {
       }
    }
    
-   private void queryGameInput(float delta) {
+   private void queryKeyboardInput(float delta) {
       lastInputTime -= delta;
       if (lastInputTime > 0) {
          return;
