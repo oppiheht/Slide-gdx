@@ -53,7 +53,7 @@ public class GameScreen extends ScreenAdapter {
 
    @Override
    public void render(float delta) {
-      Gdx.gl.glClearColor(Color.BLUE.r, Color.BLUE.g, Color.BLUE.b, Color.BLUE.a);
+      Gdx.gl.glClearColor(GameColors.BACKGROUND.r, GameColors.BACKGROUND.g, GameColors.BACKGROUND.b, GameColors.BACKGROUND.a);
       Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
       switch(state) {
       case TIMED_MODE: {

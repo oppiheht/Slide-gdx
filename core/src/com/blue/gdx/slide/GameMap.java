@@ -3,7 +3,6 @@ package com.blue.gdx.slide;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.blue.gdx.slide.level.Level;
@@ -65,15 +64,15 @@ public class GameMap implements PlayerController {
 
    public void drawDebug(ShapeRenderer renderer) {
       //rocks
-      renderer.setColor(Color.BLACK);
+      renderer.setColor(GameColors.ROCK);
       for (Rectangle r : rocks) {
          renderer.rect(r.x * GameScreen.GRID_CELL, r.y * GameScreen.GRID_CELL, r.width, r.height);
       }
       //start
-      renderer.setColor(Color.ORANGE);
+      renderer.setColor(GameColors.START);
       renderer.rect(startRect.x * GameScreen.GRID_CELL, startRect.y * GameScreen.GRID_CELL, startRect.width, startRect.height);
       //end
-      renderer.setColor(Color.GREEN);
+      renderer.setColor(GameColors.GOAL);
       renderer.rect(endRect.x * GameScreen.GRID_CELL, endRect.y * GameScreen.GRID_CELL, endRect.width, endRect.height);
       //player
       player.drawDebug(renderer);

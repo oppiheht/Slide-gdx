@@ -1,6 +1,5 @@
 package com.blue.gdx.slide;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -17,7 +16,7 @@ public class Player extends Rectangle {
    }
 
    public void drawDebug(ShapeRenderer renderer) {
-      renderer.setColor(Color.RED);
+      renderer.setColor(GameColors.PLAYER);
       renderer.rect(
             x * GameScreen.GRID_CELL,
             y * GameScreen.GRID_CELL,
