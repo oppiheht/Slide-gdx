@@ -10,7 +10,7 @@ import com.blue.gdx.slide.level.Node;
 import com.blue.gdx.slide.level.SolvableLevelFactory;
 import com.blue.gdx.slide.level.Solver;
 
-public class GameMap implements PlayerController {
+public class GameMap {
    public Level level;
    List<Rectangle> rocks = new ArrayList<Rectangle>();
    Rectangle startRect;
@@ -42,25 +42,21 @@ public class GameMap implements PlayerController {
       return level.getSolutionString().length();
    }
    
-   @Override
    public void movePlayerNorth() {
       Node newPosition = Solver.slideDirection(Solver.NORTH, level, level.getNodeAt((int)player.x, (int)player.y));
       player.setPosition(newPosition.getX(), newPosition.getY());
    }
    
-   @Override
    public void movePlayerEast() {
       Node newPosition = Solver.slideDirection(Solver.EAST, level, level.getNodeAt((int)player.x, (int)player.y));
       player.setPosition(newPosition.getX(), newPosition.getY());
    }
    
-   @Override
    public void movePlayerSouth() {
       Node newPosition = Solver.slideDirection(Solver.SOUTH, level, level.getNodeAt((int)player.x, (int)player.y));
       player.setPosition(newPosition.getX(), newPosition.getY());
    }
    
-   @Override
    public void movePlayerWest() {
       Node newPosition = Solver.slideDirection(Solver.WEST, level, level.getNodeAt((int)player.x, (int)player.y));
       player.setPosition(newPosition.getX(), newPosition.getY());

@@ -1,21 +1,18 @@
-package com.blue.gdx.slide;
+package com.blue.gdx.slide.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.blue.gdx.slide.level.Solver;
 
-public class TouchInputHandler {
+public class TouchInputHandler implements InputHandler {
 
-   private PlayerController playerController;
-   
    private Vector2 startTouch = new Vector2();
    private Vector2 currentTouch = new Vector2();
    private boolean screenIsTouched = false;
    
-   public TouchInputHandler(PlayerController playerController) {
-      this.playerController = playerController;
-   }
-   
-   public void query() {
+   @Override
+   public int queryInputDirection() {
+      int inputDirection = -1;
       if (Gdx.input.justTouched()) {
          handleNewScreenTouch();
       }
@@ -23,29 +20,30 @@ public class TouchInputHandler {
          handleScreenHold();
       }
       else if (screenIsTouched) {
-         handleScreenEndTouch();
+         inputDirection = handleScreenEndTouch();
       }
+      return inputDirection;
    }
 
-   private void handleScreenEndTouch() {
+   private int handleScreenEndTouch() {
       System.out.println("Screen end touch at "+currentTouch);
       screenIsTouched = false;
       float xDelta = currentTouch.x - startTouch.x;
       float yDelta = currentTouch.y - startTouch.y;
       if (Math.abs(xDelta) > Math.abs(yDelta)) {
          if (xDelta > 0) {
-            playerController.movePlayerEast();
+            return Solver.EAST;
          }
          else {
-            playerController.movePlayerWest();
+            return Solver.WEST;
          }
       }
       else {
          if (yDelta > 0) {
-            playerController.movePlayerSouth();
+            return Solver.SOUTH;
          }
          else {
-            playerController.movePlayerNorth();
+            return Solver.NORTH;
          }
       }
    }

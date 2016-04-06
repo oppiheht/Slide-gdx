@@ -1,5 +1,8 @@
 package com.blue.gdx.slide;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
@@ -9,6 +12,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.blue.gdx.slide.input.InputHandler;
+import com.blue.gdx.slide.input.KeyboardInputHandler;
+import com.blue.gdx.slide.input.TouchInputHandler;
 import com.blue.gdx.slide.level.Solver;
 
 public class GameScreen extends ScreenAdapter {
@@ -38,7 +44,7 @@ public class GameScreen extends ScreenAdapter {
    
    float inputDelay = .05f;
    float lastInputTime = 0f;
-   private TouchInputHandler touchInput;
+   private List<InputHandler> inputHandlers;
    
    @Override
    public void show() {
@@ -50,7 +56,9 @@ public class GameScreen extends ScreenAdapter {
       camera.update();
       shapeRenderer = new ShapeRenderer();
       map = new GameMap(MAP_SIZE);
-      touchInput = new TouchInputHandler(map);
+      inputHandlers = new ArrayList<>();
+      inputHandlers.add(new TouchInputHandler());
+      inputHandlers.add(new KeyboardInputHandler());
    }
 
    @Override
@@ -59,8 +67,7 @@ public class GameScreen extends ScreenAdapter {
       Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
       switch(state) {
       case TIMED_MODE: {
-         queryKeyboardInput(delta);
-         touchInput.query();
+         queryInputHandlers(delta);
          drawDebug();
          drawStatusText();
          checkLevelCompleted();
@@ -73,6 +80,44 @@ public class GameScreen extends ScreenAdapter {
          break;
       }
 
+   }
+   
+   private void queryInputHandlers(float delta) {
+      lastInputTime -= delta;
+      if (lastInputTime > 0) {
+         return;
+      }
+      
+      int inputDirection = -1;
+      for (InputHandler input : inputHandlers) {
+         inputDirection = input.queryInputDirection();
+         if (inputDirection != -1) {
+            if (inputDirection == Solver.NORTH && lastMoveDirection != Solver.NORTH) {
+               map.movePlayerNorth();
+               moves++;
+               lastMoveDirection = inputDirection;
+               lastInputTime = inputDelay;
+            }
+            else if (inputDirection == Solver.EAST && lastMoveDirection != Solver.EAST) {
+               map.movePlayerEast();
+               moves++;
+               lastMoveDirection = inputDirection;
+               lastInputTime = inputDelay;
+            }
+            else if (inputDirection == Solver.SOUTH && lastMoveDirection != Solver.SOUTH) {
+               map.movePlayerSouth();
+               moves++;
+               lastMoveDirection = inputDirection;
+               lastInputTime = inputDelay;
+            }
+            else if (inputDirection == Solver.WEST && lastMoveDirection != Solver.WEST) {
+               map.movePlayerWest();
+               moves++;
+               lastMoveDirection = inputDirection;
+               lastInputTime = inputDelay;
+            }
+         }
+      }
    }
 
    private void checkLevelCompleted() {
@@ -92,51 +137,9 @@ public class GameScreen extends ScreenAdapter {
       }
    }
    
-   private void queryKeyboardInput(float delta) {
-      lastInputTime -= delta;
-      if (lastInputTime > 0) {
-         return;
-      }
-      lastInputTime = inputDelay;
-      
-      boolean leftPressed = Gdx.input.isKeyPressed(Input.Keys.LEFT);
-      boolean rightPressed = Gdx.input.isKeyPressed(Input.Keys.RIGHT);
-      boolean upPressed = Gdx.input.isKeyPressed(Input.Keys.UP);
-      boolean downPressed = Gdx.input.isKeyPressed(Input.Keys.DOWN);
-      boolean resetPressed = Gdx.input.isKeyPressed(Input.Keys.R);
-      boolean quitPressed = Gdx.input.isKeyPressed(Input.Keys.Q);
-
-      if (leftPressed && lastMoveDirection != Solver.WEST) {
-         map.movePlayerWest();
-         lastMoveDirection = Solver.WEST;
-         moves++;
-      }
-      if (rightPressed && lastMoveDirection != Solver.EAST) {
-         map.movePlayerEast();
-         lastMoveDirection = Solver.EAST;
-         moves++;
-      }
-      if (upPressed && lastMoveDirection != Solver.NORTH) {
-         map.movePlayerNorth();
-         lastMoveDirection = Solver.NORTH;
-         moves++;
-      }
-      if (downPressed && lastMoveDirection != Solver.SOUTH) {
-         map.movePlayerSouth();
-         lastMoveDirection = Solver.SOUTH;
-         moves++;
-      }
-      if (resetPressed) {
-         map.createNewMap(MAP_SIZE);
-      }
-      if (quitPressed) {
-         state = STATE.GAME_OVER;
-      }
-   }
-   
    private void queryGameOverInput() {
       boolean resetPressed = Gdx.input.isKeyJustPressed(Input.Keys.R);
-      if (resetPressed) {
+      if (resetPressed || Gdx.input.isTouched()) {
          score = 0;
          timer = TIMED_MODE_DURATION;
          map.createNewMap(MAP_SIZE);
