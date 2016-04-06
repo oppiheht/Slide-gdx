@@ -4,12 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.blue.gdx.slide.level.Solver;
 
 public class GameScreen extends ScreenAdapter {
 
@@ -32,6 +32,8 @@ public class GameScreen extends ScreenAdapter {
    
    private GameMap map;
    private int score = 0;
+   private int moves = 0;
+   private int lastMoveDirection = -1;
    private float timer = TIMED_MODE_DURATION;
    
    float inputDelay = .05f;
@@ -74,9 +76,11 @@ public class GameScreen extends ScreenAdapter {
    }
 
    private void checkLevelCompleted() {
-      if (map.solved()) {
+      if (map.isSolved()) {
          map.createNewMap(MAP_SIZE);
          score++;
+         lastMoveDirection = -1;
+         moves = 0;
       }
       
    }
@@ -102,17 +106,25 @@ public class GameScreen extends ScreenAdapter {
       boolean resetPressed = Gdx.input.isKeyPressed(Input.Keys.R);
       boolean quitPressed = Gdx.input.isKeyPressed(Input.Keys.Q);
 
-      if (leftPressed) {
+      if (leftPressed && lastMoveDirection != Solver.WEST) {
          map.movePlayerWest();
+         lastMoveDirection = Solver.WEST;
+         moves++;
       }
-      if (rightPressed) {
+      if (rightPressed && lastMoveDirection != Solver.EAST) {
          map.movePlayerEast();
+         lastMoveDirection = Solver.EAST;
+         moves++;
       }
-      if (upPressed) {
+      if (upPressed && lastMoveDirection != Solver.NORTH) {
          map.movePlayerNorth();
+         lastMoveDirection = Solver.NORTH;
+         moves++;
       }
-      if (downPressed) {
+      if (downPressed && lastMoveDirection != Solver.SOUTH) {
          map.movePlayerSouth();
+         lastMoveDirection = Solver.SOUTH;
+         moves++;
       }
       if (resetPressed) {
          map.createNewMap(MAP_SIZE);
@@ -152,7 +164,11 @@ public class GameScreen extends ScreenAdapter {
    }
    
    private void drawScore() {
-      font.draw(batch, "Score: "+score, 75, WORLD_HEIGHT - 200);
+      font.draw(batch,
+            "Score: "+score+"\nMoves: "+moves+" of "+map.getSolutionLength(), 
+            75, 
+            WORLD_HEIGHT - 200);
+      
    }
    
    private void drawTimer() {
@@ -164,7 +180,11 @@ public class GameScreen extends ScreenAdapter {
       batch.setTransformMatrix(camera.view);
       batch.begin();
       
-      font.draw(batch, "Game Over!", 100, WORLD_HEIGHT / 2);
+      font.draw(
+            batch, 
+            "Game Over! You completed "+score+" levels", 
+            100, 
+            WORLD_HEIGHT / 2);
       
       batch.end();
    }

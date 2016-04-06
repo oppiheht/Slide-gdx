@@ -7,6 +7,7 @@ public class SolvableLevelFactory {
 		Level level = new Level(mapSize, mapSize);
 		String solution = "";
 		while ((solution = makeAndSolveLevel(level)).length() < difficulty);
+		level.setSolutionString(solution);
 
 		System.out.println(solution);
 		return level;

@@ -34,8 +34,12 @@ public class GameMap implements PlayerController {
       System.out.println(level);
    }
    
-   public boolean solved() {
+   public boolean isSolved() {
       return endRect.x == player.x && endRect.y == player.y;
+   }
+   
+   public int getSolutionLength() {
+      return level.getSolutionString().length();
    }
    
    @Override

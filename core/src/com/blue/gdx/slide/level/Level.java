@@ -10,6 +10,7 @@ public class Level {
    private Node grid[][];
    public int rows;
    public int cols;
+   private String solution = "";
 
    public Level(int rows, int cols) {
       this.rows = rows;
@@ -111,5 +112,13 @@ public class Level {
          }
       }
       return nodes;
+   }
+
+   public void setSolutionString(String solution) {
+      this.solution = solution;
+   }
+   
+   public String getSolutionString() {
+      return solution;
    }
 }
