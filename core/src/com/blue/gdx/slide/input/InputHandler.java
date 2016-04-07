@@ -1,5 +1,7 @@
 package com.blue.gdx.slide.input;
 
+import com.blue.gdx.slide.level.Direction;
+
 public interface InputHandler {
-   public int queryInputDirection();
+   public Direction queryInputDirection();
 }

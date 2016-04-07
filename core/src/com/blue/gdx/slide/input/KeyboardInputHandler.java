@@ -2,12 +2,12 @@ package com.blue.gdx.slide.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.blue.gdx.slide.level.Solver;
+import com.blue.gdx.slide.level.Direction;
 
 public class KeyboardInputHandler implements InputHandler {
 
    @Override
-   public int queryInputDirection() {
+   public Direction queryInputDirection() {
       
       boolean leftPressed = Gdx.input.isKeyPressed(Input.Keys.LEFT);
       boolean rightPressed = Gdx.input.isKeyPressed(Input.Keys.RIGHT);
@@ -15,18 +15,18 @@ public class KeyboardInputHandler implements InputHandler {
       boolean downPressed = Gdx.input.isKeyPressed(Input.Keys.DOWN);
 
       if (leftPressed) {
-         return Solver.WEST;
+         return Direction.WEST;
       }
       if (rightPressed) {
-         return Solver.EAST;
+         return Direction.EAST;
       }
       if (upPressed) {
-         return Solver.NORTH;
+         return Direction.NORTH;
       }
       if (downPressed) {
-       return Solver.SOUTH;
+       return Direction.SOUTH;
       }
       
-      return -1;
+      return null;
    }
 }

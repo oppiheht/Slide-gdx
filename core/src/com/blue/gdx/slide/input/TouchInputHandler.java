@@ -2,7 +2,7 @@ package com.blue.gdx.slide.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.blue.gdx.slide.level.Solver;
+import com.blue.gdx.slide.level.Direction;
 
 public class TouchInputHandler implements InputHandler {
 
@@ -11,8 +11,8 @@ public class TouchInputHandler implements InputHandler {
    private boolean screenIsTouched = false;
    
    @Override
-   public int queryInputDirection() {
-      int inputDirection = -1;
+   public Direction queryInputDirection() {
+      Direction inputDirection = null;
       if (Gdx.input.justTouched()) {
          handleNewScreenTouch();
       }
@@ -25,25 +25,25 @@ public class TouchInputHandler implements InputHandler {
       return inputDirection;
    }
 
-   private int handleScreenEndTouch() {
+   private Direction handleScreenEndTouch() {
       System.out.println("Screen end touch at "+currentTouch);
       screenIsTouched = false;
       float xDelta = currentTouch.x - startTouch.x;
       float yDelta = currentTouch.y - startTouch.y;
       if (Math.abs(xDelta) > Math.abs(yDelta)) {
          if (xDelta > 0) {
-            return Solver.EAST;
+            return Direction.EAST;
          }
          else {
-            return Solver.WEST;
+            return Direction.WEST;
          }
       }
       else {
          if (yDelta > 0) {
-            return Solver.SOUTH;
+            return Direction.SOUTH;
          }
          else {
-            return Solver.NORTH;
+            return Direction.NORTH;
          }
       }
    }

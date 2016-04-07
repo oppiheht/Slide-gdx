@@ -15,7 +15,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.blue.gdx.slide.input.InputHandler;
 import com.blue.gdx.slide.input.KeyboardInputHandler;
 import com.blue.gdx.slide.input.TouchInputHandler;
-import com.blue.gdx.slide.level.Solver;
+import com.blue.gdx.slide.level.Direction;
 
 public class GameScreen extends ScreenAdapter {
 
@@ -39,7 +39,7 @@ public class GameScreen extends ScreenAdapter {
    private GameMap map;
    private int score = 0;
    private int moves = 0;
-   private int lastMoveDirection = -1;
+   private Direction lastMoveDirection = null;
    private float timer = TIMED_MODE_DURATION;
    
    float inputDelay = .05f;
@@ -88,29 +88,29 @@ public class GameScreen extends ScreenAdapter {
          return;
       }
       
-      int inputDirection = -1;
+      Direction inputDirection = null;
       for (InputHandler input : inputHandlers) {
          inputDirection = input.queryInputDirection();
-         if (inputDirection != -1) {
-            if (inputDirection == Solver.NORTH && lastMoveDirection != Solver.NORTH) {
+         if (inputDirection != null) {
+            if (inputDirection == Direction.NORTH && lastMoveDirection != Direction.NORTH) {
                map.movePlayerNorth();
                moves++;
                lastMoveDirection = inputDirection;
                lastInputTime = inputDelay;
             }
-            else if (inputDirection == Solver.EAST && lastMoveDirection != Solver.EAST) {
+            else if (inputDirection == Direction.EAST && lastMoveDirection != Direction.EAST) {
                map.movePlayerEast();
                moves++;
                lastMoveDirection = inputDirection;
                lastInputTime = inputDelay;
             }
-            else if (inputDirection == Solver.SOUTH && lastMoveDirection != Solver.SOUTH) {
+            else if (inputDirection == Direction.SOUTH && lastMoveDirection != Direction.SOUTH) {
                map.movePlayerSouth();
                moves++;
                lastMoveDirection = inputDirection;
                lastInputTime = inputDelay;
             }
-            else if (inputDirection == Solver.WEST && lastMoveDirection != Solver.WEST) {
+            else if (inputDirection == Direction.WEST && lastMoveDirection != Direction.WEST) {
                map.movePlayerWest();
                moves++;
                lastMoveDirection = inputDirection;
@@ -124,7 +124,7 @@ public class GameScreen extends ScreenAdapter {
       if (map.isSolved()) {
          map.createNewMap(MAP_SIZE);
          score++;
-         lastMoveDirection = -1;
+         lastMoveDirection = null;
          moves = 0;
       }
       

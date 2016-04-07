@@ -1,13 +1,9 @@
 package com.blue.gdx.slide.level;
 
-import java.util.LinkedList;
 import java.util.HashSet;
+import java.util.LinkedList;
 
 public class Solver {
-   public static final int NORTH = 0;
-   public static final int EAST = 1;
-   public static final int SOUTH = 2;
-   public static final int WEST = 3;
 
    /**
     * Attempts to solve the given game level. A level is solveable if some
@@ -38,10 +34,10 @@ public class Solver {
          }
          if (!visitedNodes.contains(currentNode)) {
             visitedNodes.add(currentNode);
-            fringe.add(new NodePath(slideDirection(NORTH, level, currentNode), currentNodePath.path + "N"));
-            fringe.add(new NodePath(slideDirection(EAST, level, currentNode), currentNodePath.path + "E"));
-            fringe.add(new NodePath(slideDirection(SOUTH, level, currentNode), currentNodePath.path + "S"));
-            fringe.add(new NodePath(slideDirection(WEST, level, currentNode), currentNodePath.path + "W"));
+            fringe.add(new NodePath(slideDirection(Direction.NORTH, level, currentNode), currentNodePath.path + "N"));
+            fringe.add(new NodePath(slideDirection(Direction.EAST, level, currentNode), currentNodePath.path + "E"));
+            fringe.add(new NodePath(slideDirection(Direction.SOUTH, level, currentNode), currentNodePath.path + "S"));
+            fringe.add(new NodePath(slideDirection(Direction.WEST, level, currentNode), currentNodePath.path + "W"));
          }
 
       }
@@ -59,7 +55,7 @@ public class Solver {
     * 
     * @return The node the character will end at.
     */
-   public static Node slideDirection(int direction, Level level, Node start) {
+   public static Node slideDirection(Direction direction, Level level, Node start) {
       Node currentNode = start;
       Node nextNodeInDirection = getNodeInDirection(direction, level, currentNode);
 
@@ -78,15 +74,15 @@ public class Solver {
       return currentNode;
    }
 
-   private static Node getNodeInDirection(int direction, Level level, Node start) {
+   private static Node getNodeInDirection(Direction direction, Level level, Node start) {
       Node nextNode = null;
-      if (direction == NORTH) {
+      if (direction == Direction.NORTH) {
          nextNode = level.getNodeAt(start.getX(), start.getY() + 1);
-      } else if (direction == EAST) {
+      } else if (direction == Direction.EAST) {
          nextNode = level.getNodeAt(start.getX() + 1, start.getY());
-      } else if (direction == SOUTH) {
+      } else if (direction == Direction.SOUTH) {
          nextNode = level.getNodeAt(start.getX(), start.getY() - 1);
-      } else if (direction == WEST) {
+      } else if (direction == Direction.WEST) {
          nextNode = level.getNodeAt(start.getX() - 1, start.getY());
       }
 

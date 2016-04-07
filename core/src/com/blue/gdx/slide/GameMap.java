@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.blue.gdx.slide.level.Direction;
 import com.blue.gdx.slide.level.Level;
 import com.blue.gdx.slide.level.Node;
 import com.blue.gdx.slide.level.SolvableLevelFactory;
@@ -43,22 +44,22 @@ public class GameMap {
    }
    
    public void movePlayerNorth() {
-      Node newPosition = Solver.slideDirection(Solver.NORTH, level, level.getNodeAt((int)player.x, (int)player.y));
+      Node newPosition = Solver.slideDirection(Direction.NORTH, level, level.getNodeAt((int)player.x, (int)player.y));
       player.setPosition(newPosition.getX(), newPosition.getY());
    }
    
    public void movePlayerEast() {
-      Node newPosition = Solver.slideDirection(Solver.EAST, level, level.getNodeAt((int)player.x, (int)player.y));
+      Node newPosition = Solver.slideDirection(Direction.EAST, level, level.getNodeAt((int)player.x, (int)player.y));
       player.setPosition(newPosition.getX(), newPosition.getY());
    }
    
    public void movePlayerSouth() {
-      Node newPosition = Solver.slideDirection(Solver.SOUTH, level, level.getNodeAt((int)player.x, (int)player.y));
+      Node newPosition = Solver.slideDirection(Direction.SOUTH, level, level.getNodeAt((int)player.x, (int)player.y));
       player.setPosition(newPosition.getX(), newPosition.getY());
    }
    
    public void movePlayerWest() {
-      Node newPosition = Solver.slideDirection(Solver.WEST, level, level.getNodeAt((int)player.x, (int)player.y));
+      Node newPosition = Solver.slideDirection(Direction.WEST, level, level.getNodeAt((int)player.x, (int)player.y));
       player.setPosition(newPosition.getX(), newPosition.getY());
    }
 
