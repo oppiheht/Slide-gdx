@@ -3,6 +3,7 @@ package com.blue.gdx.slide;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
@@ -19,6 +20,8 @@ import com.blue.gdx.slide.level.Direction;
 
 public class GameScreen extends ScreenAdapter {
 
+   private Game game;
+   
    public static final int GRID_CELL = 32;
    private enum STATE {
       TIMED_MODE, GAME_OVER
@@ -34,7 +37,6 @@ public class GameScreen extends ScreenAdapter {
    private float BOTTOM_PADDING = GRID_CELL * 3;
    private float SIDE_PADDING = (WORLD_WIDTH - (MAP_SIZE*GRID_CELL)) / 2F;
 
-   
    private SpriteBatch batch;
    private BitmapFont font;
    private ShapeRenderer shapeRenderer;
@@ -48,6 +50,10 @@ public class GameScreen extends ScreenAdapter {
    float inputDelay = .05f;
    float lastInputTime = 0f;
    private List<InputHandler> inputHandlers;
+   
+   public GameScreen(Game game) {
+      this.game = game;
+   }
    
    @Override
    public void show() {
@@ -128,10 +134,7 @@ public class GameScreen extends ScreenAdapter {
    private void queryGameOverInput() {
       boolean resetPressed = Gdx.input.isKeyJustPressed(Input.Keys.R);
       if (resetPressed || Gdx.input.isTouched()) {
-         score = 0;
-         timer = TIMED_MODE_DURATION;
-         map.createNewMap(MAP_SIZE);
-         state = STATE.TIMED_MODE;
+         game.setScreen(new StartScreen(game));
       }
    }
    
