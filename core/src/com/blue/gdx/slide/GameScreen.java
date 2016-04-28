@@ -31,6 +31,9 @@ public class GameScreen extends ScreenAdapter {
    private static final float TIMED_MODE_DURATION = 120L;
    
    private Camera camera;
+   private float BOTTOM_PADDING = GRID_CELL * 3;
+   private float SIDE_PADDING = (WORLD_WIDTH - (MAP_SIZE*GRID_CELL)) / 2F;
+
    
    private SpriteBatch batch;
    private BitmapFont font;
@@ -51,8 +54,7 @@ public class GameScreen extends ScreenAdapter {
       batch = new SpriteBatch();
       font = new BitmapFont();
       camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
-      float sidePadding = (WORLD_WIDTH - (MAP_SIZE*GRID_CELL)) / 2F;
-      camera.position.set(WORLD_WIDTH/2 - sidePadding, WORLD_HEIGHT/2, 0);
+      camera.position.set(WORLD_WIDTH/2 - SIDE_PADDING, WORLD_HEIGHT/2 - BOTTOM_PADDING, 0);
       camera.update();
       shapeRenderer = new ShapeRenderer();
       map = new GameMap(MAP_SIZE);
@@ -92,32 +94,18 @@ public class GameScreen extends ScreenAdapter {
       for (InputHandler input : inputHandlers) {
          inputDirection = input.queryInputDirection();
          if (inputDirection != null) {
-            if (inputDirection == Direction.NORTH && lastMoveDirection != Direction.NORTH) {
-               map.movePlayerNorth();
-               moves++;
-               lastMoveDirection = inputDirection;
-               lastInputTime = inputDelay;
-            }
-            else if (inputDirection == Direction.EAST && lastMoveDirection != Direction.EAST) {
-               map.movePlayerEast();
-               moves++;
-               lastMoveDirection = inputDirection;
-               lastInputTime = inputDelay;
-            }
-            else if (inputDirection == Direction.SOUTH && lastMoveDirection != Direction.SOUTH) {
-               map.movePlayerSouth();
-               moves++;
-               lastMoveDirection = inputDirection;
-               lastInputTime = inputDelay;
-            }
-            else if (inputDirection == Direction.WEST && lastMoveDirection != Direction.WEST) {
-               map.movePlayerWest();
-               moves++;
-               lastMoveDirection = inputDirection;
-               lastInputTime = inputDelay;
+            if (inputDirection != lastMoveDirection) {
+               movePlayerDirection(inputDirection);
             }
          }
       }
+   }
+
+   private void movePlayerDirection(Direction inputDirection) {
+      map.movePlayer(inputDirection);
+      lastMoveDirection = inputDirection;
+      lastInputTime = inputDelay;      
+      moves++;
    }
 
    private void checkLevelCompleted() {

@@ -43,23 +43,8 @@ public class GameMap {
       return level.getSolutionString().length();
    }
    
-   public void movePlayerNorth() {
-      Node newPosition = Solver.slideDirection(Direction.NORTH, level, level.getNodeAt((int)player.x, (int)player.y));
-      player.setPosition(newPosition.getX(), newPosition.getY());
-   }
-   
-   public void movePlayerEast() {
-      Node newPosition = Solver.slideDirection(Direction.EAST, level, level.getNodeAt((int)player.x, (int)player.y));
-      player.setPosition(newPosition.getX(), newPosition.getY());
-   }
-   
-   public void movePlayerSouth() {
-      Node newPosition = Solver.slideDirection(Direction.SOUTH, level, level.getNodeAt((int)player.x, (int)player.y));
-      player.setPosition(newPosition.getX(), newPosition.getY());
-   }
-   
-   public void movePlayerWest() {
-      Node newPosition = Solver.slideDirection(Direction.WEST, level, level.getNodeAt((int)player.x, (int)player.y));
+   public void movePlayer(Direction direction) {
+      Node newPosition = Solver.slideDirection(direction, level, level.getNodeAt((int)player.x, (int)player.y));
       player.setPosition(newPosition.getX(), newPosition.getY());
    }
 
