@@ -10,6 +10,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -41,6 +42,10 @@ public class GameScreen extends ScreenAdapter {
    private BitmapFont font;
    private ShapeRenderer shapeRenderer;
    
+   private Texture rockTexture;
+   private Texture playerTexture;
+   private Texture goalTexture;
+   
    private GameMap map;
    private int score = 0;
    private int moves = 0;
@@ -59,14 +64,21 @@ public class GameScreen extends ScreenAdapter {
    public void show() {
       batch = new SpriteBatch();
       font = new BitmapFont();
+      shapeRenderer = new ShapeRenderer();
+      
       camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
       camera.position.set(WORLD_WIDTH/2 - SIDE_PADDING, WORLD_HEIGHT/2 - BOTTOM_PADDING, 0);
       camera.update();
-      shapeRenderer = new ShapeRenderer();
-      map = new GameMap(MAP_SIZE);
+      
       inputHandlers = new ArrayList<>();
       inputHandlers.add(new TouchInputHandler());
       inputHandlers.add(new KeyboardInputHandler());
+      
+      rockTexture = new Texture(Gdx.files.internal("temp_assets/wall1.png"));
+      playerTexture = new Texture(Gdx.files.internal("temp_assets/penguin1.png"));
+      goalTexture = new Texture(Gdx.files.internal("temp_assets/goal_circle.png"));
+      
+      map = new GameMap(MAP_SIZE, rockTexture, playerTexture, goalTexture);
    }
 
    @Override
@@ -76,7 +88,7 @@ public class GameScreen extends ScreenAdapter {
       switch(state) {
       case TIMED_MODE: {
          queryInputHandlers(delta);
-         drawDebug();
+         draw();
          drawStatusText();
          checkLevelCompleted();
          decrementTimer(delta);
@@ -144,6 +156,14 @@ public class GameScreen extends ScreenAdapter {
       shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
       map.drawDebug(shapeRenderer);
       shapeRenderer.end();
+   }
+   
+   private void draw() {
+      batch.setProjectionMatrix(camera.projection);
+      batch.setTransformMatrix(camera.view);
+      batch.begin();
+      map.draw(batch);
+      batch.end();
    }
    
    private void drawStatusText() {
