@@ -21,15 +21,15 @@ public class Player extends Rectangle {
    }
 
    public void draw(SpriteBatch batch) {
-      batch.draw(playerTexture, x * GameScreen.GRID_CELL, y * GameScreen.GRID_CELL);
+      batch.draw(playerTexture, x * TimedGameScreen.GRID_CELL, y * TimedGameScreen.GRID_CELL);
    }
    
    public void drawDebug(ShapeRenderer renderer) {
       renderer.setColor(GameColors.PLAYER);
       renderer.rect(
-            x * GameScreen.GRID_CELL,
-            y * GameScreen.GRID_CELL,
-            GameScreen.GRID_CELL,
-            GameScreen.GRID_CELL);
+            x * TimedGameScreen.GRID_CELL,
+            y * TimedGameScreen.GRID_CELL,
+            TimedGameScreen.GRID_CELL,
+            TimedGameScreen.GRID_CELL);
    }
 }

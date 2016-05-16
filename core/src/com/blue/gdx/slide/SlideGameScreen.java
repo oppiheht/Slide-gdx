@@ -19,44 +19,45 @@ import com.blue.gdx.slide.input.KeyboardInputHandler;
 import com.blue.gdx.slide.input.TouchInputHandler;
 import com.blue.gdx.slide.level.Direction;
 
-public class GameScreen extends ScreenAdapter {
-
-   private Game game;
+public abstract class SlideGameScreen extends ScreenAdapter {
+   
+   protected Game game;
    
    public static final int GRID_CELL = 32;
-   private enum STATE {
-      TIMED_MODE, GAME_OVER
+   
+   public enum STATE {
+      GAME_ACTIVE, GAME_OVER
    }
-   private STATE state = STATE.TIMED_MODE;
    
-   private static final int MAP_SIZE = 12;
-   private static final float WORLD_WIDTH = 13 * GRID_CELL;
-   private static final float WORLD_HEIGHT = 20 * GRID_CELL;
-   private static final float TIMED_MODE_DURATION = 120L;
+   protected STATE state = STATE.GAME_ACTIVE;
    
-   private Camera camera;
-   private float BOTTOM_PADDING = GRID_CELL * 3;
-   private float SIDE_PADDING = (WORLD_WIDTH - (MAP_SIZE*GRID_CELL)) / 2F;
+   public static final int MAP_SIZE = 12;
+   public static final float WORLD_WIDTH = 13 * GRID_CELL;
+   public static final float WORLD_HEIGHT = 20 * GRID_CELL;
+   
+   protected Camera camera;
+   protected float BOTTOM_PADDING = GRID_CELL * 3;
+   protected float SIDE_PADDING = (WORLD_WIDTH - (MAP_SIZE*GRID_CELL)) / 2F;
 
-   private SpriteBatch batch;
-   private BitmapFont font;
-   private ShapeRenderer shapeRenderer;
+   protected SpriteBatch batch;
+   protected BitmapFont font;
+   protected ShapeRenderer shapeRenderer;
    
-   private Texture rockTexture;
-   private Texture playerTexture;
-   private Texture goalTexture;
+   protected Texture rockTexture;
+   protected Texture playerTexture;
+   protected Texture goalTexture;
    
-   private GameMap map;
-   private int score = 0;
-   private int moves = 0;
-   private Direction lastMoveDirection = null;
-   private float timer = TIMED_MODE_DURATION;
+   protected GameMap map;
+
+   protected int score = 0;
+   protected int moves = 0;
+   protected Direction lastMoveDirection = null;
    
-   float inputDelay = .05f;
-   float lastInputTime = 0f;
-   private List<InputHandler> inputHandlers;
+   protected float inputDelay = .05f;
+   protected float lastInputTime = 0f;
+   protected List<InputHandler> inputHandlers;
    
-   public GameScreen(Game game) {
+   public SlideGameScreen(Game game) {
       this.game = game;
    }
    
@@ -80,18 +81,18 @@ public class GameScreen extends ScreenAdapter {
       
       map = new GameMap(MAP_SIZE, rockTexture, playerTexture, goalTexture);
    }
-
+   
    @Override
    public void render(float delta) {
       Gdx.gl.glClearColor(GameColors.BACKGROUND.r, GameColors.BACKGROUND.g, GameColors.BACKGROUND.b, GameColors.BACKGROUND.a);
       Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
       switch(state) {
-      case TIMED_MODE: {
+      case GAME_ACTIVE: {
          queryInputHandlers(delta);
          draw();
          drawStatusText();
          checkLevelCompleted();
-         decrementTimer(delta);
+         renderUpdate(delta);
          break;
       }
       case GAME_OVER:
@@ -102,7 +103,13 @@ public class GameScreen extends ScreenAdapter {
 
    }
    
-   private void queryInputHandlers(float delta) {
+   protected abstract void renderUpdate(float delta);
+   
+   protected abstract void drawStatusText();
+   
+   protected abstract void drawGameOver();
+   
+   protected void queryInputHandlers(float delta) {
       lastInputTime -= delta;
       if (lastInputTime > 0) {
          return;
@@ -118,15 +125,16 @@ public class GameScreen extends ScreenAdapter {
          }
       }
    }
+   
 
-   private void movePlayerDirection(Direction inputDirection) {
+   protected void movePlayerDirection(Direction inputDirection) {
       map.movePlayer(inputDirection);
       lastMoveDirection = inputDirection;
       lastInputTime = inputDelay;      
       moves++;
    }
 
-   private void checkLevelCompleted() {
+   protected void checkLevelCompleted() {
       if (map.isSolved()) {
          map.createNewMap(MAP_SIZE);
          score++;
@@ -136,21 +144,14 @@ public class GameScreen extends ScreenAdapter {
       
    }
    
-   private void decrementTimer(float delta) {
-      timer -= delta;
-      if (timer < 0) {
-         state = STATE.GAME_OVER;
-      }
-   }
-   
-   private void queryGameOverInput() {
+   protected void queryGameOverInput() {
       boolean resetPressed = Gdx.input.isKeyJustPressed(Input.Keys.R);
       if (resetPressed || Gdx.input.isTouched()) {
          game.setScreen(new StartScreen(game));
       }
    }
    
-   private void drawDebug() {
+   protected void drawDebug() {
       shapeRenderer.setProjectionMatrix(camera.projection);
       shapeRenderer.setTransformMatrix(camera.view);
       shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -158,48 +159,12 @@ public class GameScreen extends ScreenAdapter {
       shapeRenderer.end();
    }
    
-   private void draw() {
+   protected void draw() {
       batch.setProjectionMatrix(camera.projection);
       batch.setTransformMatrix(camera.view);
       batch.begin();
       map.draw(batch);
       batch.end();
    }
-   
-   private void drawStatusText() {
-      batch.setProjectionMatrix(camera.projection);
-      batch.setTransformMatrix(camera.view);
-      batch.begin();
-      
-      drawScore();
-      drawTimer();
-      
-      batch.end();
-   }
-   
-   private void drawScore() {
-      font.draw(batch,
-            "Score: "+score+"\nMoves: "+moves+" of "+map.getSolutionLength(), 
-            75, 
-            WORLD_HEIGHT - 200);
-      
-   }
-   
-   private void drawTimer() {
-      font.draw(batch, "Time Left:"+(int)timer, 75, WORLD_HEIGHT - 175);
-   }
-   
-   private void drawGameOver() {
-      batch.setProjectionMatrix(camera.projection);
-      batch.setTransformMatrix(camera.view);
-      batch.begin();
-      
-      font.draw(
-            batch, 
-            "Game Over! You completed "+score+" levels", 
-            100, 
-            WORLD_HEIGHT / 2);
-      
-      batch.end();
-   }
+
 }

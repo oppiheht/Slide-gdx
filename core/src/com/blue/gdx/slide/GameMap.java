@@ -60,14 +60,14 @@ public class GameMap {
    public void draw(SpriteBatch batch) {
       //rocks
       for (Rectangle r : rocks) {
-         batch.draw(rockTexture, r.x * GameScreen.GRID_CELL, r.y * GameScreen.GRID_CELL);
+         batch.draw(rockTexture, r.x * TimedGameScreen.GRID_CELL, r.y * TimedGameScreen.GRID_CELL);
       }
       
       //start
       //no start icon yet
       
       //end
-      batch.draw(goalTexture, endRect.x * GameScreen.GRID_CELL, endRect.y * GameScreen.GRID_CELL);
+      batch.draw(goalTexture, endRect.x * TimedGameScreen.GRID_CELL, endRect.y * TimedGameScreen.GRID_CELL);
       
       //player
       player.draw(batch);
@@ -77,14 +77,14 @@ public class GameMap {
       //rocks
       renderer.setColor(GameColors.ROCK);
       for (Rectangle r : rocks) {
-         renderer.rect(r.x * GameScreen.GRID_CELL, r.y * GameScreen.GRID_CELL, r.width, r.height);
+         renderer.rect(r.x * TimedGameScreen.GRID_CELL, r.y * TimedGameScreen.GRID_CELL, r.width, r.height);
       }
       //start
       renderer.setColor(GameColors.START);
-      renderer.rect(startRect.x * GameScreen.GRID_CELL, startRect.y * GameScreen.GRID_CELL, startRect.width, startRect.height);
+      renderer.rect(startRect.x * TimedGameScreen.GRID_CELL, startRect.y * TimedGameScreen.GRID_CELL, startRect.width, startRect.height);
       //end
       renderer.setColor(GameColors.GOAL);
-      renderer.rect(endRect.x * GameScreen.GRID_CELL, endRect.y * GameScreen.GRID_CELL, endRect.width, endRect.height);
+      renderer.rect(endRect.x * TimedGameScreen.GRID_CELL, endRect.y * TimedGameScreen.GRID_CELL, endRect.width, endRect.height);
       //player
       player.drawDebug(renderer);
    }
@@ -92,7 +92,7 @@ public class GameMap {
    private Rectangle nodeToRectangle(Node node) {
       return new Rectangle(node.getX(), 
             node.getY(),
-            GameScreen.GRID_CELL, 
-            GameScreen.GRID_CELL);
+            TimedGameScreen.GRID_CELL, 
+            TimedGameScreen.GRID_CELL);
    }
 }
