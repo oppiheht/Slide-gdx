@@ -46,6 +46,7 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    protected Texture rockTexture;
    protected Texture playerTexture;
    protected Texture goalTexture;
+   protected Texture background;
    
    protected GameMap map;
 
@@ -75,6 +76,7 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       inputHandlers.add(new TouchInputHandler());
       inputHandlers.add(new KeyboardInputHandler());
       
+      background = new Texture(Gdx.files.internal("temp_assets/game_bg.png"));
       rockTexture = new Texture(Gdx.files.internal("temp_assets/wall1.png"));
       playerTexture = new Texture(Gdx.files.internal("temp_assets/penguin1.png"));
       goalTexture = new Texture(Gdx.files.internal("temp_assets/goal_circle.png"));
@@ -163,6 +165,7 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       batch.setProjectionMatrix(camera.projection);
       batch.setTransformMatrix(camera.view);
       batch.begin();
+      batch.draw(background, -SIDE_PADDING, -BOTTOM_PADDING);
       map.draw(batch);
       batch.end();
    }
