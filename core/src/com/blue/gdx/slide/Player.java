@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.blue.gdx.slide.screen.game.TimedGameScreen;
 
 @SuppressWarnings("serial")
 public class Player extends Rectangle {

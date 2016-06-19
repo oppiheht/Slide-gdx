@@ -1,4 +1,4 @@
-package com.blue.gdx.slide;
+package com.blue.gdx.slide.screen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.blue.gdx.slide.screen.game.TimedGameScreen;
 import com.blue.gdx.slide.ui.PlayButton;
 
 public class StartScreen extends ScreenAdapter {

@@ -1,4 +1,4 @@
-package com.blue.gdx.slide;
+package com.blue.gdx.slide.screen.game;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +14,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.blue.gdx.slide.GameColors;
+import com.blue.gdx.slide.GameMap;
 import com.blue.gdx.slide.input.InputHandler;
 import com.blue.gdx.slide.input.KeyboardInputHandler;
 import com.blue.gdx.slide.input.TouchInputHandler;
 import com.blue.gdx.slide.level.Direction;
+import com.blue.gdx.slide.screen.StartScreen;
 
 public abstract class SlideGameScreen extends ScreenAdapter {
    

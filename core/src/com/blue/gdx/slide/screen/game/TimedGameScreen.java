@@ -1,4 +1,4 @@
-package com.blue.gdx.slide;
+package com.blue.gdx.slide.screen.game;
 
 import com.badlogic.gdx.Game;
 

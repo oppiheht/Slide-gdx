@@ -12,6 +12,7 @@ import com.blue.gdx.slide.level.Level;
 import com.blue.gdx.slide.level.Node;
 import com.blue.gdx.slide.level.SolvableLevelFactory;
 import com.blue.gdx.slide.level.Solver;
+import com.blue.gdx.slide.screen.game.TimedGameScreen;
 
 public class GameMap {
    public Level level;
