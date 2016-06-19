@@ -2,33 +2,21 @@ package com.blue.gdx.slide.screen.game;
 
 import com.badlogic.gdx.Game;
 
-public class TimedGameScreen extends SlideGameScreen {
+public class InfiniteGameScreen extends SlideGameScreen {
 
-   private static final float TIMED_MODE_DURATION = 120L;
+   private static final float STARTING_TIME = 30L;
+   private static final float LEVEL_COMPLETION_TIME_BONUS = 7L;
 
-   private float timer = TIMED_MODE_DURATION;
-   private int moves = 0;
+   private float timer = STARTING_TIME;
    private int score = 0;
    
-   public TimedGameScreen(Game game) {
+   public InfiniteGameScreen(Game game) {
       super(game);
    }
-   
-   
+
    @Override
    protected void renderUpdate(float delta) {
       decrementTimer(delta);
-   }
-   
-   @Override
-   protected void onPlayerMove() {
-      moves++;
-   }
-   
-   @Override
-   protected void onLevelCompleted() {
-      moves = 0;
-      score++;
    }
    
    private void decrementTimer(float delta) {
@@ -45,18 +33,9 @@ public class TimedGameScreen extends SlideGameScreen {
       batch.setTransformMatrix(camera.view);
       batch.begin();
       
-      drawScore();
       drawTimer();
       
       batch.end();
-   }
-   
-   private void drawScore() {
-      font.draw(batch,
-            "Score: "+score+"\nMoves: "+moves+" of "+map.getSolutionLength(), 
-            75, 
-            WORLD_HEIGHT - 200);
-      
    }
    
    private void drawTimer() {
@@ -77,4 +56,16 @@ public class TimedGameScreen extends SlideGameScreen {
       
       batch.end();
    }
+
+   @Override
+   protected void onPlayerMove() {
+      
+   }
+
+   @Override
+   protected void onLevelCompleted() {
+      score++;
+      timer += LEVEL_COMPLETION_TIME_BONUS;
+   }
+
 }

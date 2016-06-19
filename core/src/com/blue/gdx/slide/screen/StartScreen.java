@@ -10,6 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.blue.gdx.slide.screen.game.InfiniteGameScreen;
+import com.blue.gdx.slide.screen.game.PerfectionistGameScreen;
 import com.blue.gdx.slide.screen.game.TimedGameScreen;
 import com.blue.gdx.slide.ui.PlayButton;
 
@@ -75,7 +77,7 @@ public class StartScreen extends ScreenAdapter {
          @Override
          public void tap(InputEvent event, float x, float y, int count, int button) {
             super.tap(event, x, y, count, button);
-            game.setScreen(new TimedGameScreen(game));
+            game.setScreen(new PerfectionistGameScreen(game));
             dispose();
          }
       });
@@ -88,7 +90,7 @@ public class StartScreen extends ScreenAdapter {
          @Override
          public void tap(InputEvent event, float x, float y, int count, int button) {
             super.tap(event, x, y, count, button);
-            game.setScreen(new TimedGameScreen(game));
+            game.setScreen(new InfiniteGameScreen(game));
             dispose();
          }
       });

@@ -26,4 +26,16 @@ public class PerfectionistGameScreen extends SlideGameScreen {
       
    }
 
+   @Override
+   protected void onPlayerMove() {
+      // TODO Auto-generated method stub
+      
+   }
+
+   @Override
+   protected void onLevelCompleted() {
+      // TODO Auto-generated method stub
+      
+   }
+
 }

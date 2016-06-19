@@ -53,8 +53,6 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    
    protected GameMap map;
 
-   protected int score = 0;
-   protected int moves = 0;
    protected Direction lastMoveDirection = null;
    
    protected float inputDelay = .05f;
@@ -110,6 +108,10 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    
    protected abstract void renderUpdate(float delta);
    
+   protected abstract void onPlayerMove();
+   
+   protected abstract void onLevelCompleted();
+   
    protected abstract void drawStatusText();
    
    protected abstract void drawGameOver();
@@ -135,18 +137,16 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    protected void movePlayerDirection(Direction inputDirection) {
       map.movePlayer(inputDirection);
       lastMoveDirection = inputDirection;
-      lastInputTime = inputDelay;      
-      moves++;
+      lastInputTime = inputDelay;
+      onPlayerMove();
    }
 
    protected void checkLevelCompleted() {
       if (map.isSolved()) {
+         onLevelCompleted();
          map.createNewMap(MAP_SIZE);
-         score++;
          lastMoveDirection = null;
-         moves = 0;
       }
-      
    }
    
    protected void queryGameOverInput() {
