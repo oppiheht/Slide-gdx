@@ -22,7 +22,10 @@ public class StartScreen extends ScreenAdapter {
    private Stage stage;
    
    private Texture backgroundTexture;
-   PlayButton playButton;
+   private Texture gameLogoTexture;
+   PlayButton playTimedButton;
+   PlayButton playPerfectionistButton;
+   PlayButton playInfiniteButton;
    
    public StartScreen(Game game) {
       this.game = game;
@@ -36,9 +39,25 @@ public class StartScreen extends ScreenAdapter {
       backgroundTexture = new Texture(Gdx.files.internal("bg.png"));
       Image background = new Image(backgroundTexture);
       
-      playButton = new PlayButton();
-      playButton.setPosition(WORLD_WIDTH / 2, WORLD_HEIGHT / 3, Align.center);
-      playButton.addListener(new ActorGestureListener() {
+      gameLogoTexture = new Texture(Gdx.files.internal("temp_assets/logo.png"));
+      Image logo = new Image(gameLogoTexture);
+      logo.setPosition(WORLD_WIDTH / 2, WORLD_HEIGHT - 160, Align.center);
+      
+      createPlayTimedButton();
+      createPlayPerfectionistButton();
+      createPlayInfiniteButton();
+            
+      stage.addActor(background);
+      stage.addActor(logo);
+      stage.addActor(playTimedButton);
+      stage.addActor(playPerfectionistButton);
+      stage.addActor(playInfiniteButton);
+   }
+
+   private void createPlayTimedButton() {
+      playTimedButton = new PlayButton();
+      playTimedButton.setPosition(WORLD_WIDTH / 4, WORLD_HEIGHT / 3, Align.center);
+      playTimedButton.addListener(new ActorGestureListener() {
          @Override
          public void tap(InputEvent event, float x, float y, int count, int button) {
             super.tap(event, x, y, count, button);
@@ -46,9 +65,32 @@ public class StartScreen extends ScreenAdapter {
             dispose();
          }
       });
-            
-      stage.addActor(background);
-      stage.addActor(playButton);
+   }
+   
+   private void createPlayPerfectionistButton() {
+      playPerfectionistButton = new PlayButton();
+      playPerfectionistButton.setPosition(WORLD_WIDTH / 4 * 3, WORLD_HEIGHT / 3, Align.center);
+      playPerfectionistButton.addListener(new ActorGestureListener() {
+         @Override
+         public void tap(InputEvent event, float x, float y, int count, int button) {
+            super.tap(event, x, y, count, button);
+            game.setScreen(new TimedGameScreen(game));
+            dispose();
+         }
+      });
+   }
+   
+   private void createPlayInfiniteButton() {
+      playInfiniteButton = new PlayButton();
+      playInfiniteButton.setPosition(WORLD_WIDTH / 4, WORLD_HEIGHT / 8, Align.center);
+      playInfiniteButton.addListener(new ActorGestureListener() {
+         @Override
+         public void tap(InputEvent event, float x, float y, int count, int button) {
+            super.tap(event, x, y, count, button);
+            game.setScreen(new TimedGameScreen(game));
+            dispose();
+         }
+      });
    }
    
    @Override
@@ -66,7 +108,7 @@ public class StartScreen extends ScreenAdapter {
    public void dispose() {
       stage.dispose();
       backgroundTexture.dispose();
-      playButton.dispose();
+      playTimedButton.dispose();
    }
 
 }
