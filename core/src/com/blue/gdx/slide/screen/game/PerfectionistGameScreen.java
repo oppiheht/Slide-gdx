@@ -4,19 +4,35 @@ import com.badlogic.gdx.Game;
 
 public class PerfectionistGameScreen extends SlideGameScreen {
 
+   private int moves = 0;
+   private int score = 0;
+
+   
    public PerfectionistGameScreen(Game game) {
       super(game);
    }
 
    @Override
    protected void renderUpdate(float delta) {
-      // TODO Auto-generated method stub
-      
+      //ACtually nothing to do for infinite mode
    }
 
    @Override
    protected void drawStatusText() {
-      // TODO Auto-generated method stub
+      batch.setProjectionMatrix(camera.projection);
+      batch.setTransformMatrix(camera.view);
+      batch.begin();
+      
+      drawScore();
+      
+      batch.end();
+   }
+   
+   private void drawScore() {
+      font.draw(batch,
+            "Score: "+score+"\nMoves: "+moves,
+            75, 
+            WORLD_HEIGHT - 200);
       
    }
 
@@ -28,14 +44,16 @@ public class PerfectionistGameScreen extends SlideGameScreen {
 
    @Override
    protected void onPlayerMove() {
-      // TODO Auto-generated method stub
-      
+      moves++;
+      if (moves > map.getSolutionLength()) {
+         state = STATE.GAME_OVER;
+      }
    }
 
    @Override
    protected void onLevelCompleted() {
-      // TODO Auto-generated method stub
-      
+      moves = 0;
+      score++;
    }
 
 }

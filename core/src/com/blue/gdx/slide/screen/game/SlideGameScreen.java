@@ -45,7 +45,7 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    protected SpriteBatch batch;
    protected BitmapFont font;
    protected ShapeRenderer shapeRenderer;
-   
+
    protected Texture rockTexture;
    protected Texture playerTexture;
    protected Texture goalTexture;
@@ -73,7 +73,7 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       camera.position.set(WORLD_WIDTH/2 - SIDE_PADDING, WORLD_HEIGHT/2 - BOTTOM_PADDING, 0);
       camera.update();
       
-      inputHandlers = new ArrayList<>();
+      inputHandlers = new ArrayList<InputHandler>();
       inputHandlers.add(new TouchInputHandler());
       inputHandlers.add(new KeyboardInputHandler());
       
