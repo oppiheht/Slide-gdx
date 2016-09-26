@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.blue.gdx.slide.screen.game.InfiniteGameScreen;
 import com.blue.gdx.slide.screen.game.PerfectionistGameScreen;
 import com.blue.gdx.slide.screen.game.TimedGameScreen;
+import com.blue.gdx.slide.ui.AssetManager;
 import com.blue.gdx.slide.ui.PlayButton;
 
 public class StartScreen extends ScreenAdapter {
@@ -39,10 +40,10 @@ public class StartScreen extends ScreenAdapter {
       stage = new Stage(new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT));
       Gdx.input.setInputProcessor(stage);
       
-      backgroundTexture = new Texture(Gdx.files.internal("bg.png"));
+      backgroundTexture = new Texture(AssetManager.menu);
       Image background = new Image(backgroundTexture);
       
-      gameLogoTexture = new Texture(Gdx.files.internal("temp_assets/logo.png"));
+      gameLogoTexture = new Texture(AssetManager.logo);
       Image logo = new Image(gameLogoTexture);
       logo.setPosition(WORLD_WIDTH / 2, WORLD_HEIGHT - 160, Align.center);
       

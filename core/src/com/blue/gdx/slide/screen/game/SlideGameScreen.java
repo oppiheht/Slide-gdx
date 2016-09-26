@@ -21,6 +21,7 @@ import com.blue.gdx.slide.input.KeyboardInputHandler;
 import com.blue.gdx.slide.input.TouchInputHandler;
 import com.blue.gdx.slide.level.Direction;
 import com.blue.gdx.slide.screen.StartScreen;
+import com.blue.gdx.slide.ui.AssetManager;
 
 public abstract class SlideGameScreen extends ScreenAdapter {
    
@@ -77,10 +78,10 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       inputHandlers.add(new TouchInputHandler());
       inputHandlers.add(new KeyboardInputHandler());
       
-      background = new Texture(Gdx.files.internal("temp_assets/game_bg.png"));
-      rockTexture = new Texture(Gdx.files.internal("temp_assets/wall1.png"));
-      playerTexture = new Texture(Gdx.files.internal("temp_assets/penguin1.png"));
-      goalTexture = new Texture(Gdx.files.internal("temp_assets/goal_circle.png"));
+      background = new Texture(AssetManager.background);
+      rockTexture = new Texture(AssetManager.rock);
+      playerTexture = new Texture(AssetManager.player);
+      goalTexture = new Texture(AssetManager.goal);
       
       map = new GameMap(MAP_SIZE, rockTexture, playerTexture, goalTexture);
    }
