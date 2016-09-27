@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -14,7 +15,9 @@ import com.blue.gdx.slide.screen.game.InfiniteGameScreen;
 import com.blue.gdx.slide.screen.game.PerfectionistGameScreen;
 import com.blue.gdx.slide.screen.game.TimedGameScreen;
 import com.blue.gdx.slide.ui.AssetManager;
-import com.blue.gdx.slide.ui.PlayButton;
+import com.blue.gdx.slide.ui.PlayInfiniteButton;
+import com.blue.gdx.slide.ui.PlayPerfectionistButton;
+import com.blue.gdx.slide.ui.PlayTimedButton;
 
 public class StartScreen extends ScreenAdapter {
    
@@ -27,9 +30,10 @@ public class StartScreen extends ScreenAdapter {
    
    private Texture backgroundTexture;
    private Texture gameLogoTexture;
-   PlayButton playTimedButton;
-   PlayButton playPerfectionistButton;
-   PlayButton playInfiniteButton;
+   PlayTimedButton playTimedButton;
+   PlayPerfectionistButton playPerfectionistButton;
+   PlayInfiniteButton playInfiniteButton;
+   protected BitmapFont font;
    
    public StartScreen(Game game) {
       this.game = game;
@@ -40,6 +44,8 @@ public class StartScreen extends ScreenAdapter {
       stage = new Stage(new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT));
       Gdx.input.setInputProcessor(stage);
       
+      font = new BitmapFont();
+
       backgroundTexture = new Texture(AssetManager.menu);
       Image background = new Image(backgroundTexture);
       
@@ -59,7 +65,7 @@ public class StartScreen extends ScreenAdapter {
    }
 
    private void createPlayTimedButton() {
-      playTimedButton = new PlayButton();
+      playTimedButton = new PlayTimedButton();
       playTimedButton.setPosition(WORLD_WIDTH / 4, WORLD_HEIGHT / 3, Align.center);
       playTimedButton.addListener(new ActorGestureListener() {
          @Override
@@ -72,7 +78,7 @@ public class StartScreen extends ScreenAdapter {
    }
    
    private void createPlayPerfectionistButton() {
-      playPerfectionistButton = new PlayButton();
+      playPerfectionistButton = new PlayPerfectionistButton();
       playPerfectionistButton.setPosition(WORLD_WIDTH / 4 * 3, WORLD_HEIGHT / 3, Align.center);
       playPerfectionistButton.addListener(new ActorGestureListener() {
          @Override
@@ -85,7 +91,7 @@ public class StartScreen extends ScreenAdapter {
    }
    
    private void createPlayInfiniteButton() {
-      playInfiniteButton = new PlayButton();
+      playInfiniteButton = new PlayInfiniteButton();
       playInfiniteButton.setPosition(WORLD_WIDTH / 4, WORLD_HEIGHT / 8, Align.center);
       playInfiniteButton.addListener(new ActorGestureListener() {
          @Override
@@ -112,7 +118,6 @@ public class StartScreen extends ScreenAdapter {
    public void dispose() {
       stage.dispose();
       backgroundTexture.dispose();
-      playTimedButton.dispose();
    }
 
 }
