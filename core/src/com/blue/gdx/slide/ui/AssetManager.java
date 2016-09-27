@@ -5,7 +5,7 @@ import com.badlogic.gdx.files.FileHandle;
 
 public class AssetManager {
 
-   private static String assetLocation = "temp_assets";
+   private static String assetLocation = "space";
    
    public static FileHandle background = Gdx.files.internal(assetLocation+"/gameBg.png");
    public static FileHandle rock = Gdx.files.internal(assetLocation+"/wall.png");
