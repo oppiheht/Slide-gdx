@@ -14,7 +14,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.blue.gdx.slide.GameColors;
 import com.blue.gdx.slide.GameMap;
 import com.blue.gdx.slide.input.InputHandler;
 import com.blue.gdx.slide.input.KeyboardInputHandler;
@@ -88,12 +87,12 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    
    @Override
    public void render(float delta) {
-      Gdx.gl.glClearColor(GameColors.BACKGROUND.r, GameColors.BACKGROUND.g, GameColors.BACKGROUND.b, GameColors.BACKGROUND.a);
+      Gdx.gl.glClearColor(0, 0, 0, 0);
       Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
       switch(state) {
       case GAME_ACTIVE: {
          queryInputHandlers(delta);
-         draw();
+         draw(delta);
          drawStatusText();
          checkLevelCompleted();
          renderUpdate(delta);
@@ -157,20 +156,12 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       }
    }
    
-   protected void drawDebug() {
-      shapeRenderer.setProjectionMatrix(camera.projection);
-      shapeRenderer.setTransformMatrix(camera.view);
-      shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-      map.drawDebug(shapeRenderer);
-      shapeRenderer.end();
-   }
-   
-   protected void draw() {
+   protected void draw(float delta) {
       batch.setProjectionMatrix(camera.projection);
       batch.setTransformMatrix(camera.view);
       batch.begin();
       batch.draw(background, -SIDE_PADDING, -BOTTOM_PADDING);
-      map.draw(batch);
+      map.draw(batch, delta);
       batch.end();
    }
 

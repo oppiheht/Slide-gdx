@@ -13,8 +13,8 @@ public class AssetManager {
    
    private static HashMap<String, TextureRegion> texturesMap = new HashMap<String, TextureRegion>();
    
-   public static FileHandle background = Gdx.files.internal(assetLocation+"/gameBg.png");
-   public static FileHandle rock = Gdx.files.internal(assetLocation+"/wall.png");
+   public static FileHandle background = Gdx.files.internal(assetLocation+"/menuBg.png");
+   public static FileHandle rock = Gdx.files.internal(assetLocation+"/asteroid1.png");
    public static FileHandle player = Gdx.files.internal(assetLocation+"/player.png");
    public static FileHandle goal = Gdx.files.internal(assetLocation+"/goal.png");
    public static FileHandle menu = Gdx.files.internal(assetLocation+"/menuBg.png");

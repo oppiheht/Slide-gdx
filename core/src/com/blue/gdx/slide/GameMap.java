@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.blue.gdx.slide.level.Direction;
 import com.blue.gdx.slide.level.Level;
@@ -58,7 +57,7 @@ public class GameMap {
       player.setPosition(newPosition.getX(), newPosition.getY());
    }
 
-   public void draw(SpriteBatch batch) {
+   public void draw(SpriteBatch batch, float delta) {
       //rocks
       for (Rectangle r : rocks) {
          batch.draw(rockTexture, r.x * TimedGameScreen.GRID_CELL, r.y * TimedGameScreen.GRID_CELL);
@@ -71,25 +70,9 @@ public class GameMap {
       batch.draw(goalTexture, endRect.x * TimedGameScreen.GRID_CELL, endRect.y * TimedGameScreen.GRID_CELL);
       
       //player
-      player.draw(batch);
+      player.draw(batch, delta);
    }
    
-   public void drawDebug(ShapeRenderer renderer) {
-      //rocks
-      renderer.setColor(GameColors.ROCK);
-      for (Rectangle r : rocks) {
-         renderer.rect(r.x * TimedGameScreen.GRID_CELL, r.y * TimedGameScreen.GRID_CELL, r.width, r.height);
-      }
-      //start
-      renderer.setColor(GameColors.START);
-      renderer.rect(startRect.x * TimedGameScreen.GRID_CELL, startRect.y * TimedGameScreen.GRID_CELL, startRect.width, startRect.height);
-      //end
-      renderer.setColor(GameColors.GOAL);
-      renderer.rect(endRect.x * TimedGameScreen.GRID_CELL, endRect.y * TimedGameScreen.GRID_CELL, endRect.width, endRect.height);
-      //player
-      player.drawDebug(renderer);
-   }
-
    private Rectangle nodeToRectangle(Node node) {
       return new Rectangle(node.getX(), 
             node.getY(),
