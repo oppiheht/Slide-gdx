@@ -38,6 +38,8 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    public static final float WORLD_WIDTH = 13 * GRID_CELL;
    public static final float WORLD_HEIGHT = 20 * GRID_CELL;
    
+   protected static final int STATUS_FONT_X = 18;
+   
    protected Camera camera;
    protected float BOTTOM_PADDING = GRID_CELL * 3;
    protected float SIDE_PADDING = (WORLD_WIDTH - (MAP_SIZE*GRID_CELL)) / 2F;
@@ -66,7 +68,7 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    @Override
    public void show() {
       batch = new SpriteBatch();
-      font = new BitmapFont();
+      font = new BitmapFont(AssetManager.fontFile, AssetManager.fontTexture, false);
       shapeRenderer = new ShapeRenderer();
       
       camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);

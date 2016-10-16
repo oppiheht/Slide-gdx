@@ -20,6 +20,9 @@ public class AssetManager {
    public static FileHandle menu = Gdx.files.internal(assetLocation+"/menuBg.png");
    public static FileHandle logo = Gdx.files.internal(assetLocation+"/logo.png");
    
+   public static FileHandle fontFile = Gdx.files.internal("fonts/ken_future.fnt");
+   public static FileHandle fontTexture = Gdx.files.internal("fonts/ken_future.png");
+   
    public static void loadAssets() {
       texturesMap.put("playTimed", new TextureRegion(new Texture(Gdx.files.internal(assetLocation+"/playTimedButton.png"))));
       texturesMap.put("playTimedPress", new TextureRegion(new Texture(Gdx.files.internal(assetLocation+"/playTimedButtonDown.png"))));

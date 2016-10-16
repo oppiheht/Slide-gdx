@@ -39,7 +39,7 @@ public class InfiniteGameScreen extends SlideGameScreen {
    }
    
    private void drawTimer() {
-      font.draw(batch, "Time Left:"+(int)timer, 75, WORLD_HEIGHT - 175);
+      font.draw(batch, "Time Left:"+(int)timer, STATUS_FONT_X, WORLD_HEIGHT - 230);
    }
    
    @Override

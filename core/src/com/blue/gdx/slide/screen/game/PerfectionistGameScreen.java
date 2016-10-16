@@ -31,7 +31,7 @@ public class PerfectionistGameScreen extends SlideGameScreen {
    private void drawScore() {
       font.draw(batch,
             "Score: "+score+"\nMoves: "+moves,
-            75, 
+            STATUS_FONT_X, 
             WORLD_HEIGHT - 200);
       
    }

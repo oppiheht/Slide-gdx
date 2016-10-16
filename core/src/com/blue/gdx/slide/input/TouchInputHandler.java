@@ -26,7 +26,7 @@ public class TouchInputHandler implements InputHandler {
    }
 
    private Direction handleScreenEndTouch() {
-      System.out.println("Screen end touch at "+currentTouch);
+      //System.out.println("Screen end touch at "+currentTouch);
       screenIsTouched = false;
       float xDelta = currentTouch.x - startTouch.x;
       float yDelta = currentTouch.y - startTouch.y;

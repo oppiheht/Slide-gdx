@@ -41,7 +41,7 @@ public class GameMap {
       endRect = nodeToRectangle(level.getEndNode());
       player = new Player(startRect, playerTexture);
 
-      System.out.println(level);
+      //System.out.println(level);
    }
    
    public boolean isSolved() {

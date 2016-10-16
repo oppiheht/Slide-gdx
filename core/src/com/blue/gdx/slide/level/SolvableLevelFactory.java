@@ -9,7 +9,7 @@ public class SolvableLevelFactory {
 		while ((solution = makeAndSolveLevel(level)).length() < difficulty);
 		level.setSolutionString(solution);
 
-		System.out.println(solution);
+		//System.out.println(solution);
 		return level;
 	}
 	
