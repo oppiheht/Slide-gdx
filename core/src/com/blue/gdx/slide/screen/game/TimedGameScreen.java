@@ -53,14 +53,14 @@ public class TimedGameScreen extends SlideGameScreen {
    
    private void drawScore() {
       font.draw(batch,
-            "Score: "+score+"\nMoves: "+moves+" of "+map.getSolutionLength(), 
+            "Time Left:  " + formatTime(timer) + "\nScore: "+score+"\nMoves: "+moves+" of "+map.getSolutionLength(), 
             STATUS_FONT_X, 
-            WORLD_HEIGHT - 200);
+            WORLD_HEIGHT - 160);
       
    }
    
    private void drawTimer() {
-      font.draw(batch, "Time Left:"+(int)timer, 20, WORLD_HEIGHT - 175);
+      font.draw(batch, "", 20, WORLD_HEIGHT - 175);
    }
    
    @Override
