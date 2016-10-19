@@ -1,9 +1,12 @@
 Todo:
-1. Perfectionist game mode
-2. Persist high scores locally
-3. Placeholder game title
-4. Center game screen on device
-5. Fix font
-6. Replay/continue playing a failed level
-7. Back-to-start button in timed mode 
-8. Story/challenge map mode
+-------
+App icon
+Use built in asset manager
+Back-to-start button in timed + infinite mode
+Handle back button in game
+Feedback when completing a level
+
+
+Extra:
+-------
+Persist high scores locally
