@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AssetManager {
 
-   private static String assetLocation = "space";
+   private static String assetLocation = "nikky_space";
    
    private static HashMap<String, TextureRegion> texturesMap = new HashMap<String, TextureRegion>();
    
@@ -20,16 +20,16 @@ public class AssetManager {
    public static FileHandle menu = Gdx.files.internal(assetLocation+"/menuBg.png");
    public static FileHandle logo = Gdx.files.internal(assetLocation+"/logo.png");
    
-   public static FileHandle fontFile = Gdx.files.internal("fonts/ken_future.fnt");
-   public static FileHandle fontTexture = Gdx.files.internal("fonts/ken_future.png");
+   public static FileHandle fontFile = Gdx.files.internal("fonts/colo_pro_black.fnt");
+   public static FileHandle fontTexture = Gdx.files.internal("fonts/colo_pro_black.png");
    
    public static void loadAssets() {
       texturesMap.put("playTimed", new TextureRegion(new Texture(Gdx.files.internal(assetLocation+"/playTimedButton.png"))));
-      texturesMap.put("playTimedPress", new TextureRegion(new Texture(Gdx.files.internal(assetLocation+"/playTimedButtonDown.png"))));
+      texturesMap.put("playTimedPress", new TextureRegion(new Texture(Gdx.files.internal(assetLocation+"/playTimedButton.png"))));
       texturesMap.put("playInfinite", new TextureRegion(new Texture(Gdx.files.internal(assetLocation+"/playInfiniteButton.png"))));
-      texturesMap.put("playInfinitePress", new TextureRegion(new Texture(Gdx.files.internal(assetLocation+"/playInfiniteButtonDown.png"))));
+      texturesMap.put("playInfinitePress", new TextureRegion(new Texture(Gdx.files.internal(assetLocation+"/playInfiniteButton.png"))));
       texturesMap.put("playPerfectionist", new TextureRegion(new Texture(Gdx.files.internal(assetLocation+"/playPerfectionistButton.png"))));
-      texturesMap.put("playPerfectionistPress", new TextureRegion(new Texture(Gdx.files.internal(assetLocation+"/playPerfectionistButtonDown.png"))));
+      texturesMap.put("playPerfectionistPress", new TextureRegion(new Texture(Gdx.files.internal(assetLocation+"/playPerfectionistButton.png"))));
    }
    
    public static TextureRegion getTextureRegion(String key) {
