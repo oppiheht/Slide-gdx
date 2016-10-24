@@ -1,5 +1,6 @@
 Todo:
 -------
+Add logic to show 3 different types of asteroids randomly (possibly rotate)
 App icon
 Use built in asset manager
 Back-to-start button in timed + infinite mode
