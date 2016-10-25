@@ -37,15 +37,15 @@ public class GameMap {
       for (Node node : level.getWalls()) {
          rocks.add(nodeToRectangle(node));
       }
-      startRect = nodeToRectangle(level.getStartNode());
       endRect = nodeToRectangle(level.getEndNode());
-      player = new Player(startRect, playerTexture);
+      player = new Player(playerTexture);
+      player.setPosition(level.getStartNode().getX(), level.getStartNode().getY());
 
       //System.out.println(level);
    }
    
    public boolean isSolved() {
-      return endRect.x == player.x && endRect.y == player.y;
+      return endRect.x == player.getX() && endRect.y == player.getY();
    }
    
    public int getSolutionLength() {
@@ -53,7 +53,7 @@ public class GameMap {
    }
    
    public void movePlayer(Direction direction) {
-      Node newPosition = Solver.slideDirection(direction, level, level.getNodeAt((int)player.x, (int)player.y));
+      Node newPosition = Solver.slideDirection(direction, level, level.getNodeAt((int)player.getX(), (int)player.getY()));
       player.setPosition(newPosition.getX(), newPosition.getY());
    }
 
@@ -62,9 +62,6 @@ public class GameMap {
       for (Rectangle r : rocks) {
          batch.draw(rockTexture, r.x * TimedGameScreen.GRID_CELL, r.y * TimedGameScreen.GRID_CELL);
       }
-      
-      //start
-      //no start icon yet
       
       //end
       batch.draw(goalTexture, endRect.x * TimedGameScreen.GRID_CELL, endRect.y * TimedGameScreen.GRID_CELL);
