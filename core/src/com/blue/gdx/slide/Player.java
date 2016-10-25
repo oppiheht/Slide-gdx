@@ -6,12 +6,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import com.blue.gdx.slide.screen.game.TimedGameScreen;
+import com.blue.gdx.slide.screen.game.SlideGameScreen;
 
 @SuppressWarnings("serial")
 public class Player extends Rectangle {
    
-   private static final int CELL_SIZE = TimedGameScreen.GRID_CELL;
+   private static final int CELL_SIZE = SlideGameScreen.GRID_CELL;
    
    protected TextureRegion playerTexture;
    protected float rotation = 360.0f;
