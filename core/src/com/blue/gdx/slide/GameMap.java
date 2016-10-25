@@ -39,7 +39,8 @@ public class GameMap {
       }
       endRect = nodeToRectangle(level.getEndNode());
       player = new Player(playerTexture);
-      player.setPosition(level.getStartNode().getX(), level.getStartNode().getY());
+      player.setWorldX(level.getStartNode().getX());
+      player.setWorldY(level.getStartNode().getY());
 
       //System.out.println(level);
    }
@@ -53,8 +54,10 @@ public class GameMap {
    }
    
    public void movePlayer(Direction direction) {
-      Node newPosition = Solver.slideDirection(direction, level, level.getNodeAt((int)player.getX(), (int)player.getY()));
-      player.setPosition(newPosition.getX(), newPosition.getY());
+      Node newPosition = Solver.slideDirection(direction, level, level.getNodeAt((int)player.getWorldX(), (int)player.getWorldY()));
+      player.setWorldX(newPosition.getX());
+      player.setWorldY(newPosition.getY());
+      player.setPosition(newPosition.getX() * gridCellSizePixels, newPosition.getY() * gridCellSizePixels);
    }
 
    public void draw(SpriteBatch batch, float delta) {

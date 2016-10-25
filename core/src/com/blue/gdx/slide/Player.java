@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Player extends Sprite {
    
    protected float rotationSpeed = 0f;
+   protected int worldX = 0;
+   protected int worldY = 0;
+   
    Random rand = new Random();
 
    public Player(Texture playerTexture) {
@@ -34,6 +37,22 @@ public class Player extends Sprite {
    
    protected void updateRotation(float delta) {
       setRotation(getRotation() + (rotationSpeed * delta) % 360f);
+   }
+
+   public int getWorldX() {
+      return worldX;
+   }
+
+   public void setWorldX(int worldX) {
+      this.worldX = worldX;
+   }
+
+   public int getWorldY() {
+      return worldY;
+   }
+
+   public void setWorldY(int worldY) {
+      this.worldY = worldY;
    }
    
 }
