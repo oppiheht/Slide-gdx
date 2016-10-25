@@ -1,5 +1,6 @@
 package com.blue.gdx.slide.screen.game;
 
+import com.badlogic.gdx.Gdx;
 import com.blue.gdx.slide.SlideGame;
 
 public class InfiniteGameScreen extends SlideGameScreen {
@@ -33,7 +34,7 @@ public class InfiniteGameScreen extends SlideGameScreen {
    }
    
    private void drawTimer() {
-      font.draw(batch, "Time Left:  " + formatTime(timer), STATUS_FONT_X, WORLD_HEIGHT - 230);
+      font.draw(batch, "Time Left:  " + formatTime(timer), STATUS_FONT_X, Gdx.graphics.getHeight() - 230);
    }
    
    @Override
@@ -46,7 +47,7 @@ public class InfiniteGameScreen extends SlideGameScreen {
             batch, 
             "Game Over! You completed "+score+" levels", 
             100, 
-            WORLD_HEIGHT / 2);
+            Gdx.graphics.getHeight() / 2);
       
       batch.end();
    }

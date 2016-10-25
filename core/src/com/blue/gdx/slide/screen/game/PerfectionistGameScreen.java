@@ -1,5 +1,6 @@
 package com.blue.gdx.slide.screen.game;
 
+import com.badlogic.gdx.Gdx;
 import com.blue.gdx.slide.SlideGame;
 
 public class PerfectionistGameScreen extends SlideGameScreen {
@@ -26,7 +27,7 @@ public class PerfectionistGameScreen extends SlideGameScreen {
       font.draw(batch,
             "Score: "+score+"\nMoves: "+moves,
             STATUS_FONT_X, 
-            WORLD_HEIGHT - 200);
+            Gdx.graphics.getHeight() - 200);
       
    }
 

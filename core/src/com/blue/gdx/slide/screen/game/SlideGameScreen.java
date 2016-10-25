@@ -25,8 +25,6 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    
    protected SlideGame game;
    
-   public static final int GRID_CELL = 32;
-   
    public enum STATE {
       GAME_ACTIVE, GAME_OVER
    }
@@ -34,14 +32,17 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    protected STATE state = STATE.GAME_ACTIVE;
    
    public static final int MAP_SIZE = 12;
-   public static final float WORLD_WIDTH = 13 * GRID_CELL;
-   public static final float WORLD_HEIGHT = 20 * GRID_CELL;
+   public static final int WORLD_WIDTH_CELLS = 13;
+   public static final int WORLD_HEIGHT_CELLS = 20;
+   
+   protected float SIDE_PADDING_CELLS = 0.5F;
+   protected float BOTTOM_PADDING_CELLS = 3;
    
    protected static final int STATUS_FONT_X = 18;
    
+   public int gridCellSizePixels = 0;
+   
    protected Camera camera;
-   protected float BOTTOM_PADDING = GRID_CELL * 3;
-   protected float SIDE_PADDING = (WORLD_WIDTH - (MAP_SIZE*GRID_CELL)) / 2F;
 
    protected SpriteBatch batch;
    protected BitmapFont font;
@@ -68,8 +69,13 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       batch = new SpriteBatch();
       font = game.getAssetManager().get(SlideAssetManager.FONTFILE, BitmapFont.class);
       
-      camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
-      camera.position.set(WORLD_WIDTH/2 - SIDE_PADDING, WORLD_HEIGHT/2 - BOTTOM_PADDING, 0);
+      gridCellSizePixels = Gdx.graphics.getWidth() / WORLD_WIDTH_CELLS;
+      
+      camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+      camera.position.set(
+            Gdx.graphics.getWidth()/2 - (SIDE_PADDING_CELLS * gridCellSizePixels), 
+            Gdx.graphics.getHeight()/2 - (BOTTOM_PADDING_CELLS * gridCellSizePixels), 
+            0);
       camera.update();
       
       inputHandlers = new ArrayList<InputHandler>();
@@ -81,7 +87,7 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       playerTexture = game.getAssetManager().get(SlideAssetManager.PLAYER, Texture.class);
       goalTexture = game.getAssetManager().get(SlideAssetManager.GOAL, Texture.class);
       
-      map = new GameMap(MAP_SIZE, rockTexture, playerTexture, goalTexture);
+      map = new GameMap(MAP_SIZE, gridCellSizePixels, rockTexture, playerTexture, goalTexture);
    }
    
    @Override
@@ -162,7 +168,7 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       batch.setProjectionMatrix(camera.projection);
       batch.setTransformMatrix(camera.view);
       batch.begin();
-      batch.draw(background, -SIDE_PADDING, -BOTTOM_PADDING);
+      batch.draw(background, -SIDE_PADDING_CELLS * gridCellSizePixels, -SIDE_PADDING_CELLS * gridCellSizePixels);
       map.draw(batch, delta);
       drawStatusText();
       batch.end();

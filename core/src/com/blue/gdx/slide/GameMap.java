@@ -11,23 +11,23 @@ import com.blue.gdx.slide.level.Level;
 import com.blue.gdx.slide.level.Node;
 import com.blue.gdx.slide.level.SolvableLevelFactory;
 import com.blue.gdx.slide.level.Solver;
-import com.blue.gdx.slide.screen.game.TimedGameScreen;
 
 public class GameMap {
-   public Level level;
-   List<Rectangle> rocks = new ArrayList<Rectangle>();
-   Rectangle startRect;
-   Rectangle endRect;
-   Player player;
-   
-   Texture rockTexture;
-   Texture playerTexture;
-   Texture goalTexture;
+   private Level level;
+   private List<Rectangle> rocks = new ArrayList<Rectangle>();
+   private Rectangle endRect;
+   private Player player;
+ 
+   private Texture rockTexture;
+   private Texture playerTexture;
+   private Texture goalTexture;
+   private int gridCellSizePixels;
 
-   public GameMap(int size, Texture rockTexture, Texture playerTexture, Texture goalTexture) {
+   public GameMap(int size, int gridCellSizePixels, Texture rockTexture, Texture playerTexture, Texture goalTexture) {
       this.rockTexture = rockTexture;
       this.playerTexture = playerTexture;
       this.goalTexture = goalTexture;
+      this.gridCellSizePixels = gridCellSizePixels;
       createNewMap(size);
    }
 
@@ -60,20 +60,17 @@ public class GameMap {
    public void draw(SpriteBatch batch, float delta) {
       //rocks
       for (Rectangle r : rocks) {
-         batch.draw(rockTexture, r.x * TimedGameScreen.GRID_CELL, r.y * TimedGameScreen.GRID_CELL);
+         batch.draw(rockTexture, r.x * gridCellSizePixels, r.y * gridCellSizePixels);
       }
       
       //end
-      batch.draw(goalTexture, endRect.x * TimedGameScreen.GRID_CELL, endRect.y * TimedGameScreen.GRID_CELL);
+      batch.draw(goalTexture, endRect.x * gridCellSizePixels, endRect.y * gridCellSizePixels);
       
       //player
       player.draw(batch, delta);
    }
    
    private Rectangle nodeToRectangle(Node node) {
-      return new Rectangle(node.getX(), 
-            node.getY(),
-            TimedGameScreen.GRID_CELL, 
-            TimedGameScreen.GRID_CELL);
+      return new Rectangle(node.getX(), node.getY(), gridCellSizePixels, gridCellSizePixels);
    }
 }
