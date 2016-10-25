@@ -48,9 +48,11 @@ public class StartScreen extends ScreenAdapter {
 
       backgroundTexture = game.getAssetManager().get(SlideAssetManager.BACKGROUND, Texture.class);
       Image background = new Image(backgroundTexture);
+      background.setSize(WORLD_WIDTH, WORLD_HEIGHT);
       
       gameLogoTexture = game.getAssetManager().get(SlideAssetManager.LOGO, Texture.class);
       Image logo = new Image(gameLogoTexture);
+      logo.setSize(WORLD_WIDTH * 0.8f, WORLD_HEIGHT * 0.2f);
       logo.setPosition(WORLD_WIDTH / 2, WORLD_HEIGHT - 160, Align.center);
       
       createPlayTimedButton();
@@ -71,7 +73,8 @@ public class StartScreen extends ScreenAdapter {
             new TextureRegionDrawable(
                   new TextureRegion(game.getAssetManager().get(SlideAssetManager.PLAYTIMEDBUTTON, Texture.class)))
             );
-      playTimedButton.setPosition(WORLD_WIDTH / 4, WORLD_HEIGHT / 3, Align.center);
+      playTimedButton.setWidth(WORLD_WIDTH * 0.7f);
+      playTimedButton.setPosition(WORLD_WIDTH / 2, WORLD_HEIGHT * 0.5f, Align.center);
       playTimedButton.addListener(new ActorGestureListener() {
          @Override
          public void tap(InputEvent event, float x, float y, int count, int button) {
@@ -89,7 +92,8 @@ public class StartScreen extends ScreenAdapter {
             new TextureRegionDrawable(
                   new TextureRegion(game.getAssetManager().get(SlideAssetManager.PLAYPERFECTIONISTBUTTON, Texture.class)))
             );
-      playPerfectionistButton.setPosition(WORLD_WIDTH / 4 * 3, WORLD_HEIGHT / 3, Align.center);
+      playPerfectionistButton.setWidth(WORLD_WIDTH * 0.7f);
+      playPerfectionistButton.setPosition(WORLD_WIDTH / 2, WORLD_HEIGHT * 0.35f, Align.center);
       playPerfectionistButton.addListener(new ActorGestureListener() {
          @Override
          public void tap(InputEvent event, float x, float y, int count, int button) {
@@ -107,7 +111,8 @@ public class StartScreen extends ScreenAdapter {
             new TextureRegionDrawable(
                   new TextureRegion(game.getAssetManager().get(SlideAssetManager.PLAYINFINITEBUTTON, Texture.class)))
             );
-      playInfiniteButton.setPosition(WORLD_WIDTH / 4, WORLD_HEIGHT / 8, Align.center);
+      playInfiniteButton.setWidth(WORLD_WIDTH * 0.7f);
+      playInfiniteButton.setPosition(WORLD_WIDTH / 2, WORLD_HEIGHT * 0.2f, Align.center);
       playInfiniteButton.addListener(new ActorGestureListener() {
          @Override
          public void tap(InputEvent event, float x, float y, int count, int button) {
