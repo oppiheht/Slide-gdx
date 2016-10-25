@@ -2,19 +2,26 @@ package com.blue.gdx.slide;
 
 import com.badlogic.gdx.Game;
 import com.blue.gdx.slide.screen.StartScreen;
-import com.blue.gdx.slide.ui.AssetManager;
+import com.blue.gdx.slide.ui.SlideAssetManager;
 
 public class SlideGame extends Game {
 
+   protected SlideAssetManager assetManager;
+   
    @Override
    public void create() {
-      AssetManager.loadAssets();
+      assetManager = new SlideAssetManager();
+      assetManager.loadAllAssetsBlocking();
       setScreen(new StartScreen(this));
+   }
+   
+   public SlideAssetManager getAssetManager() {
+      return assetManager;
    }
    
    @Override
    public void dispose() {
       super.dispose();
-      AssetManager.dispose();
+      assetManager.dispose();
    }
 }

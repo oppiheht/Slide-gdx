@@ -3,7 +3,6 @@ package com.blue.gdx.slide.screen.game;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
@@ -13,18 +12,18 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.blue.gdx.slide.GameMap;
+import com.blue.gdx.slide.SlideGame;
 import com.blue.gdx.slide.input.InputHandler;
 import com.blue.gdx.slide.input.KeyboardInputHandler;
 import com.blue.gdx.slide.input.TouchInputHandler;
 import com.blue.gdx.slide.level.Direction;
 import com.blue.gdx.slide.screen.StartScreen;
-import com.blue.gdx.slide.ui.AssetManager;
+import com.blue.gdx.slide.ui.SlideAssetManager;
 
 public abstract class SlideGameScreen extends ScreenAdapter {
    
-   protected Game game;
+   protected SlideGame game;
    
    public static final int GRID_CELL = 32;
    
@@ -46,7 +45,6 @@ public abstract class SlideGameScreen extends ScreenAdapter {
 
    protected SpriteBatch batch;
    protected BitmapFont font;
-   protected ShapeRenderer shapeRenderer;
 
    protected Texture rockTexture;
    protected Texture playerTexture;
@@ -61,15 +59,14 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    protected float lastInputTime = 0f;
    protected List<InputHandler> inputHandlers;
    
-   public SlideGameScreen(Game game) {
+   public SlideGameScreen(SlideGame game) {
       this.game = game;
    }
    
    @Override
    public void show() {
       batch = new SpriteBatch();
-      font = new BitmapFont(AssetManager.fontFile, AssetManager.fontTexture, false);
-      shapeRenderer = new ShapeRenderer();
+      font = game.getAssetManager().get(SlideAssetManager.FONTFILE, BitmapFont.class);
       
       camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
       camera.position.set(WORLD_WIDTH/2 - SIDE_PADDING, WORLD_HEIGHT/2 - BOTTOM_PADDING, 0);
@@ -79,10 +76,10 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       inputHandlers.add(new TouchInputHandler());
       inputHandlers.add(new KeyboardInputHandler());
       
-      background = new Texture(AssetManager.background);
-      rockTexture = new Texture(AssetManager.rock);
-      playerTexture = new Texture(AssetManager.player);
-      goalTexture = new Texture(AssetManager.goal);
+      background = game.getAssetManager().get(SlideAssetManager.BACKGROUND, Texture.class);
+      rockTexture = game.getAssetManager().get(SlideAssetManager.ROCK, Texture.class);
+      playerTexture = game.getAssetManager().get(SlideAssetManager.PLAYER, Texture.class);
+      goalTexture = game.getAssetManager().get(SlideAssetManager.GOAL, Texture.class);
       
       map = new GameMap(MAP_SIZE, rockTexture, playerTexture, goalTexture);
    }
@@ -95,7 +92,6 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       case GAME_ACTIVE: {
          queryInputHandlers(delta);
          draw(delta);
-         drawStatusText();
          checkLevelCompleted();
          renderUpdate(delta);
          break;
@@ -168,6 +164,7 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       batch.begin();
       batch.draw(background, -SIDE_PADDING, -BOTTOM_PADDING);
       map.draw(batch, delta);
+      drawStatusText();
       batch.end();
    }
 

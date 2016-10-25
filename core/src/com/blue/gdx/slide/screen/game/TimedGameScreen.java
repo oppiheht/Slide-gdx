@@ -1,6 +1,6 @@
 package com.blue.gdx.slide.screen.game;
 
-import com.badlogic.gdx.Game;
+import com.blue.gdx.slide.SlideGame;
 
 public class TimedGameScreen extends SlideGameScreen {
 
@@ -10,7 +10,7 @@ public class TimedGameScreen extends SlideGameScreen {
    private int moves = 0;
    private int score = 0;
    
-   public TimedGameScreen(Game game) {
+   public TimedGameScreen(SlideGame game) {
       super(game);
    }
    
@@ -41,14 +41,8 @@ public class TimedGameScreen extends SlideGameScreen {
    
    @Override
    protected void drawStatusText() {
-      batch.setProjectionMatrix(camera.projection);
-      batch.setTransformMatrix(camera.view);
-      batch.begin();
-      
       drawScore();
       drawTimer();
-      
-      batch.end();
    }
    
    private void drawScore() {

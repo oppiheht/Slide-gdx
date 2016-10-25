@@ -1,6 +1,6 @@
 package com.blue.gdx.slide.screen.game;
 
-import com.badlogic.gdx.Game;
+import com.blue.gdx.slide.SlideGame;
 
 public class PerfectionistGameScreen extends SlideGameScreen {
 
@@ -8,24 +8,18 @@ public class PerfectionistGameScreen extends SlideGameScreen {
    private int score = 0;
 
    
-   public PerfectionistGameScreen(Game game) {
+   public PerfectionistGameScreen(SlideGame game) {
       super(game);
    }
 
    @Override
    protected void renderUpdate(float delta) {
-      //ACtually nothing to do for infinite mode
+      //Actually nothing to do for perfectionist mode
    }
 
    @Override
    protected void drawStatusText() {
-      batch.setProjectionMatrix(camera.projection);
-      batch.setTransformMatrix(camera.view);
-      batch.begin();
-      
       drawScore();
-      
-      batch.end();
    }
    
    private void drawScore() {
