@@ -35,8 +35,8 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    
    protected STATE state = STATE.GAME_ACTIVE;
    
-   public static final int MAP_SIZE = 12;
-   public static final int WORLD_WIDTH_CELLS = MAP_SIZE - 1;
+   public static final int LEVEL_SIZE = 12;
+   public static final int WORLD_WIDTH_CELLS = LEVEL_SIZE - 1;
    public static final int WORLD_HEIGHT_CELLS = 20;
    
    protected float SIDE_PADDING_CELLS = 0.5F;
@@ -56,7 +56,7 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    protected Goal goal;
    protected Background background;
    
-   protected GameWorld map;
+   protected GameWorld world;
 
    protected Direction lastMoveDirection = null;
    
@@ -88,7 +88,7 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       player = new Player(game.getAssetManager().get(SlideAssetManager.PLAYER, Texture.class), gridCellSizePixels);
       goal = new Goal(game.getAssetManager().get(SlideAssetManager.GOAL, Texture.class), gridCellSizePixels);
       
-      map = new GameWorld(MAP_SIZE, gridCellSizePixels, rock, player, goal);
+      world = new GameWorld(LEVEL_SIZE, gridCellSizePixels, rock, player, goal);
    }
    
    @Override
@@ -140,7 +140,7 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    
 
    protected void movePlayerDirection(Direction inputDirection) {
-      map.movePlayer(inputDirection);
+      world.movePlayer(inputDirection);
       lastMoveDirection = inputDirection;
       lastInputTime = inputDelay;
       onPlayerMove();
@@ -151,9 +151,9 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    }
    
    protected void checkLevelCompleted() {
-      if (map.isSolved()) {
+      if (world.isSolved()) {
          onLevelCompleted();
-         map.createNewMap(MAP_SIZE);
+         world.createNewLevel(LEVEL_SIZE);
          lastMoveDirection = null;
       }
    }
@@ -170,7 +170,7 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       batch.setTransformMatrix(camera.view);
       batch.begin();
       background.draw(batch);
-      map.draw(batch, delta);
+      world.draw(batch, delta);
       drawStatusText();
       batch.end();
    }

@@ -28,10 +28,10 @@ public class GameWorld {
       this.player = player;
       this.goal = goal;
       this.gridCellSizePixels = gridCellSizePixels;
-      createNewMap(size);
+      createNewLevel(size);
    }
 
-   public void createNewMap(int size) {
+   public void createNewLevel(int size) {
       level = SolvableLevelFactory.newSolvableLevel(size, size);
       rocks.clear();
       for (Node node : level.getWalls()) {

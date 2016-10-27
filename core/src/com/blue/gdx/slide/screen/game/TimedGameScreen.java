@@ -48,7 +48,7 @@ public class TimedGameScreen extends SlideGameScreen {
    
    private void drawScore() {
       font.draw(batch,
-            "Time Left:  " + formatTime(timer) + "\nScore: "+score+"\nMoves: "+moves+" of "+map.getSolutionLength(), 
+            "Time Left:  " + formatTime(timer) + "\nScore: "+score+"\nMoves: "+moves+" of "+world.getSolutionLength(), 
             STATUS_FONT_X, 
             Gdx.graphics.getHeight() - 160);
       
