@@ -1,4 +1,4 @@
-package com.blue.gdx.slide;
+package com.blue.gdx.slide.sprite;
 
 import java.util.Random;
 
@@ -11,18 +11,24 @@ public class Player extends Sprite {
    protected float rotationSpeed = 0f;
    protected int worldX = 0;
    protected int worldY = 0;
+   protected int size = 0;
    
    Random rand = new Random();
 
-   public Player(Texture playerTexture) {
+   public Player(Texture playerTexture, int size) {
       super(playerTexture);
+      this.size = size;
+      setCenter(size/2.0f, size/2.0f);
+      setScale(size / (float)playerTexture.getWidth());
       rotateRandomly();
    }
    
    @Override
    public void setPosition(float x, float y) {
       rotateRandomly();
-      super.setPosition(x, y);
+      super.setPosition(x * size, y * size);
+      worldX = (int) x;
+      worldY = (int) y;
    }
    
    public void rotateRandomly() {

@@ -12,13 +12,17 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.blue.gdx.slide.GameMap;
+import com.blue.gdx.slide.GameWorld;
 import com.blue.gdx.slide.SlideGame;
 import com.blue.gdx.slide.input.InputHandler;
 import com.blue.gdx.slide.input.KeyboardInputHandler;
 import com.blue.gdx.slide.input.TouchInputHandler;
 import com.blue.gdx.slide.level.Direction;
 import com.blue.gdx.slide.screen.StartScreen;
+import com.blue.gdx.slide.sprite.Background;
+import com.blue.gdx.slide.sprite.Goal;
+import com.blue.gdx.slide.sprite.Player;
+import com.blue.gdx.slide.sprite.Rock;
 import com.blue.gdx.slide.ui.SlideAssetManager;
 
 public abstract class SlideGameScreen extends ScreenAdapter {
@@ -32,7 +36,7 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    protected STATE state = STATE.GAME_ACTIVE;
    
    public static final int MAP_SIZE = 12;
-   public static final int WORLD_WIDTH_CELLS = 13;
+   public static final int WORLD_WIDTH_CELLS = MAP_SIZE - 1;
    public static final int WORLD_HEIGHT_CELLS = 20;
    
    protected float SIDE_PADDING_CELLS = 0.5F;
@@ -47,12 +51,12 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    protected SpriteBatch batch;
    protected BitmapFont font;
 
-   protected Texture rockTexture;
-   protected Texture playerTexture;
-   protected Texture goalTexture;
-   protected Texture background;
+   protected Rock rock;
+   protected Player player;
+   protected Goal goal;
+   protected Background background;
    
-   protected GameMap map;
+   protected GameWorld map;
 
    protected Direction lastMoveDirection = null;
    
@@ -72,22 +76,19 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       gridCellSizePixels = Gdx.graphics.getWidth() / WORLD_WIDTH_CELLS;
       
       camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-      camera.position.set(
-            Gdx.graphics.getWidth()/2 - (SIDE_PADDING_CELLS * gridCellSizePixels), 
-            Gdx.graphics.getHeight()/2 - (BOTTOM_PADDING_CELLS * gridCellSizePixels), 
-            0);
+      camera.position.set(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2 , 0);
       camera.update();
       
       inputHandlers = new ArrayList<InputHandler>();
       inputHandlers.add(new TouchInputHandler());
       inputHandlers.add(new KeyboardInputHandler());
       
-      background = game.getAssetManager().get(SlideAssetManager.BACKGROUND, Texture.class);
-      rockTexture = game.getAssetManager().get(SlideAssetManager.ROCK, Texture.class);
-      playerTexture = game.getAssetManager().get(SlideAssetManager.PLAYER, Texture.class);
-      goalTexture = game.getAssetManager().get(SlideAssetManager.GOAL, Texture.class);
+      background = new Background(game.getAssetManager().get(SlideAssetManager.BACKGROUND, Texture.class));
+      rock = new Rock(game.getAssetManager().get(SlideAssetManager.ROCK, Texture.class), gridCellSizePixels);
+      player = new Player(game.getAssetManager().get(SlideAssetManager.PLAYER, Texture.class), gridCellSizePixels);
+      goal = new Goal(game.getAssetManager().get(SlideAssetManager.GOAL, Texture.class), gridCellSizePixels);
       
-      map = new GameMap(MAP_SIZE, gridCellSizePixels, rockTexture, playerTexture, goalTexture);
+      map = new GameWorld(MAP_SIZE, gridCellSizePixels, rock, player, goal);
    }
    
    @Override
@@ -168,7 +169,7 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       batch.setProjectionMatrix(camera.projection);
       batch.setTransformMatrix(camera.view);
       batch.begin();
-      batch.draw(background, -SIDE_PADDING_CELLS * gridCellSizePixels, -SIDE_PADDING_CELLS * gridCellSizePixels);
+      background.draw(batch);
       map.draw(batch, delta);
       drawStatusText();
       batch.end();

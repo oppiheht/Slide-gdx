@@ -23,12 +23,8 @@ public class StartScreen extends ScreenAdapter {
    
    private final SlideGame game;
    
-   private static final int WORLD_WIDTH = 480;
-   private static final int WORLD_HEIGHT = 640;
-   
    private Stage stage;
    
-   private Texture backgroundTexture;
    private Texture gameLogoTexture;
    private ImageButton playTimedButton;
    private ImageButton playPerfectionistButton;
@@ -41,19 +37,19 @@ public class StartScreen extends ScreenAdapter {
    
    @Override
    public void show() {
-      stage = new Stage(new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT));
+      stage = new Stage(new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
       Gdx.input.setInputProcessor(stage);
       
       font = new BitmapFont();
 
-      backgroundTexture = game.getAssetManager().get(SlideAssetManager.BACKGROUND, Texture.class);
+      Texture backgroundTexture = game.getAssetManager().get(SlideAssetManager.BACKGROUND, Texture.class);
       Image background = new Image(backgroundTexture);
-      background.setSize(WORLD_WIDTH, WORLD_HEIGHT);
+      background.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
       
       gameLogoTexture = game.getAssetManager().get(SlideAssetManager.LOGO, Texture.class);
       Image logo = new Image(gameLogoTexture);
-      logo.setSize(WORLD_WIDTH * 0.8f, WORLD_HEIGHT * 0.2f);
-      logo.setPosition(WORLD_WIDTH / 2, WORLD_HEIGHT - 160, Align.center);
+      logo.setSize(Gdx.graphics.getWidth() * 0.8f, Gdx.graphics.getHeight() * 0.2f);
+      logo.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() - 160, Align.center);
       
       createPlayTimedButton();
       createPlayPerfectionistButton();
@@ -73,8 +69,8 @@ public class StartScreen extends ScreenAdapter {
             new TextureRegionDrawable(
                   new TextureRegion(game.getAssetManager().get(SlideAssetManager.PLAYTIMEDBUTTON, Texture.class)))
             );
-      playTimedButton.setWidth(WORLD_WIDTH * 0.7f);
-      playTimedButton.setPosition(WORLD_WIDTH / 2, WORLD_HEIGHT * 0.5f, Align.center);
+      playTimedButton.setWidth(Gdx.graphics.getWidth() * 0.7f);
+      playTimedButton.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() * 0.5f, Align.center);
       playTimedButton.addListener(new ActorGestureListener() {
          @Override
          public void tap(InputEvent event, float x, float y, int count, int button) {
@@ -92,8 +88,8 @@ public class StartScreen extends ScreenAdapter {
             new TextureRegionDrawable(
                   new TextureRegion(game.getAssetManager().get(SlideAssetManager.PLAYPERFECTIONISTBUTTON, Texture.class)))
             );
-      playPerfectionistButton.setWidth(WORLD_WIDTH * 0.7f);
-      playPerfectionistButton.setPosition(WORLD_WIDTH / 2, WORLD_HEIGHT * 0.35f, Align.center);
+      playPerfectionistButton.setWidth(Gdx.graphics.getWidth() * 0.7f);
+      playPerfectionistButton.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() * 0.35f, Align.center);
       playPerfectionistButton.addListener(new ActorGestureListener() {
          @Override
          public void tap(InputEvent event, float x, float y, int count, int button) {
@@ -111,8 +107,8 @@ public class StartScreen extends ScreenAdapter {
             new TextureRegionDrawable(
                   new TextureRegion(game.getAssetManager().get(SlideAssetManager.PLAYINFINITEBUTTON, Texture.class)))
             );
-      playInfiniteButton.setWidth(WORLD_WIDTH * 0.7f);
-      playInfiniteButton.setPosition(WORLD_WIDTH / 2, WORLD_HEIGHT * 0.2f, Align.center);
+      playInfiniteButton.setWidth(Gdx.graphics.getWidth() * 0.7f);
+      playInfiniteButton.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() * 0.2f, Align.center);
       playInfiniteButton.addListener(new ActorGestureListener() {
          @Override
          public void tap(InputEvent event, float x, float y, int count, int button) {
