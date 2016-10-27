@@ -44,7 +44,7 @@ public class GameWorld {
    }
    
    public boolean isSolved() {
-      return endRect.x == player.getX() && endRect.y == player.getY();
+      return endRect.x == player.getWorldX() && endRect.y == player.getWorldY();
    }
    
    public int getSolutionLength() {
