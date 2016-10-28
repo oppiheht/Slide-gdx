@@ -7,8 +7,8 @@ public class Rock extends Sprite {
 
    public Rock(Texture texture, int size) {
       super(texture);
-      setCenter(size/2.0f, size/2.0f);
-      setScale(size / (float)texture.getWidth());
+      setOrigin(0, 0);
+      setSize(size, size);
    }
 
 }

@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Matrix4;
 import com.blue.gdx.slide.GameWorld;
 import com.blue.gdx.slide.SlideGame;
 import com.blue.gdx.slide.input.InputHandler;
@@ -36,8 +37,7 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    protected STATE state = STATE.GAME_ACTIVE;
    
    public static final int LEVEL_SIZE = 12;
-   public static final int WORLD_WIDTH_CELLS = LEVEL_SIZE - 1;
-   public static final int WORLD_HEIGHT_CELLS = 20;
+   public static final int WORLD_WIDTH_CELLS = LEVEL_SIZE + 1;
    
    protected float SIDE_PADDING_CELLS = 0.5F;
    protected float BOTTOM_PADDING_CELLS = 3;
@@ -166,12 +166,19 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    }
    
    protected void draw(float delta) {
+      Matrix4 worldPadding = camera.view.cpy();
+      worldPadding.translate(gridCellSizePixels * SIDE_PADDING_CELLS, gridCellSizePixels * BOTTOM_PADDING_CELLS, 0);
+      
       batch.setProjectionMatrix(camera.projection);
       batch.setTransformMatrix(camera.view);
+      
       batch.begin();
       background.draw(batch);
+      
+      batch.setTransformMatrix(worldPadding);
       world.draw(batch, delta);
       drawStatusText();
+      
       batch.end();
    }
 

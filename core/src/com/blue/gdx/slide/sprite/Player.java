@@ -18,8 +18,8 @@ public class Player extends Sprite {
    public Player(Texture playerTexture, int size) {
       super(playerTexture);
       this.size = size;
-      setCenter(size/2.0f, size/2.0f);
-      setScale(size / (float)playerTexture.getWidth());
+      setSize(size, size);
+      setOrigin(size/2, size/2);
       rotateRandomly();
    }
    
