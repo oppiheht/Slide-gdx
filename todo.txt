@@ -1,8 +1,7 @@
 Todo:
 -------
-Add logic to show 3 different types of asteroids randomly (possibly rotate)
-App icon
-Use built in asset manager
+Fix in-game status text
+Add end screen text to all modes
 Back-to-start button in timed + infinite mode
 Handle back button in game
 Feedback when completing a level
