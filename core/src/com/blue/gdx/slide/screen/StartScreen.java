@@ -49,7 +49,7 @@ public class StartScreen extends ScreenAdapter {
       gameLogoTexture = game.getAssetManager().get(SlideAssetManager.LOGO, Texture.class);
       Image logo = new Image(gameLogoTexture);
       logo.setSize(Gdx.graphics.getWidth() * 0.8f, Gdx.graphics.getHeight() * 0.2f);
-      logo.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() - 160, Align.center);
+      logo.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() * 0.77f, Align.center);
       
       createPlayTimedButton();
       createPlayPerfectionistButton();
