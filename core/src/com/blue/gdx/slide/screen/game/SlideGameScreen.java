@@ -84,11 +84,15 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       inputHandlers.add(new KeyboardInputHandler());
       
       background = new Background(game.getAssetManager().get(SlideAssetManager.BACKGROUND, Texture.class));
-      rock = new Rock(game.getAssetManager().get(SlideAssetManager.ROCK, Texture.class), gridCellSizePixels);
       player = new Player(game.getAssetManager().get(SlideAssetManager.PLAYER, Texture.class), gridCellSizePixels);
       goal = new Goal(game.getAssetManager().get(SlideAssetManager.GOAL, Texture.class), gridCellSizePixels);
-      
-      world = new GameWorld(LEVEL_SIZE, gridCellSizePixels, rock, player, goal);
+
+      List<Rock> rocks = new ArrayList<Rock>(3);
+      rocks.add(new Rock(game.getAssetManager().get(SlideAssetManager.ROCK1, Texture.class), gridCellSizePixels));
+      rocks.add(new Rock(game.getAssetManager().get(SlideAssetManager.ROCK2, Texture.class), gridCellSizePixels));
+      rocks.add(new Rock(game.getAssetManager().get(SlideAssetManager.ROCK3, Texture.class), gridCellSizePixels));
+
+      world = new GameWorld(LEVEL_SIZE, gridCellSizePixels, rocks, player, goal);
    }
    
    @Override

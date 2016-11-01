@@ -17,7 +17,9 @@ public class SlideAssetManager extends AssetManager {
    public static String PLAYINFINITEBUTTON = assetLocation+"/playInfiniteButton.png";
    public static String PLAYPERFECTIONISTBUTTON = assetLocation+"/playPerfectionistButton.png";
    
-   public static String ROCK = assetLocation+"/asteroid1.png";
+   public static String ROCK1 = assetLocation+"/asteroid1.png";
+   public static String ROCK2 = assetLocation+"/asteroid2.png";
+   public static String ROCK3 = assetLocation+"/asteroid3.png";
    public static String PLAYER = assetLocation+"/player.png";
    public static String GOAL = assetLocation+"/goal.png";
                  
@@ -29,7 +31,9 @@ public class SlideAssetManager extends AssetManager {
       load(PLAYTIMEDBUTTON, Texture.class);
       load(PLAYINFINITEBUTTON, Texture.class);
       load(PLAYPERFECTIONISTBUTTON, Texture.class);
-      load(ROCK, Texture.class);
+      load(ROCK1, Texture.class);
+      load(ROCK2, Texture.class);
+      load(ROCK3, Texture.class);
       load(PLAYER, Texture.class);
       load(GOAL, Texture.class);
       

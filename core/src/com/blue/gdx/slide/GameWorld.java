@@ -1,8 +1,5 @@
 package com.blue.gdx.slide;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -12,19 +9,23 @@ import com.blue.gdx.slide.level.Node;
 import com.blue.gdx.slide.level.SolvableLevelFactory;
 import com.blue.gdx.slide.level.Solver;
 import com.blue.gdx.slide.sprite.Player;
+import com.blue.gdx.slide.sprite.Rock;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameWorld {
    private Level level;
-   private List<Rectangle> rocks = new ArrayList<Rectangle>();
+   private List<Rectangle> rockRectangles = new ArrayList<Rectangle>();
    private Rectangle endRect;
    private Player player;
  
-   private Sprite rock;
+   private List<Rock> rockSprites;
    private Sprite goal;
    private int gridCellSizePixels;
 
-   public GameWorld(int size, int gridCellSizePixels, Sprite rock, Player player, Sprite goal) {
-      this.rock = rock;
+   public GameWorld(int size, int gridCellSizePixels, List<Rock> rocks, Player player, Sprite goal) {
+      this.rockSprites = rocks;
       this.player = player;
       this.goal = goal;
       this.gridCellSizePixels = gridCellSizePixels;
@@ -33,9 +34,9 @@ public class GameWorld {
 
    public void createNewLevel(int size) {
       level = SolvableLevelFactory.newSolvableLevel(size, size);
-      rocks.clear();
+      rockRectangles.clear();
       for (Node node : level.getWalls()) {
-         rocks.add(nodeToRectangle(node));
+         rockRectangles.add(nodeToRectangle(node));
       }
       endRect = nodeToRectangle(level.getEndNode());
       
@@ -57,9 +58,11 @@ public class GameWorld {
    }
 
    public void draw(SpriteBatch batch, float delta) {
-      for (Rectangle r : rocks) {
-         rock.setPosition(r.x * gridCellSizePixels, r.y * gridCellSizePixels);
-         rock.draw(batch);
+      for (int i = 0; i < rockRectangles.size(); i++) {
+         Rectangle r = rockRectangles.get(i);
+         Rock rockSprite = rockSprites.get(i % rockSprites.size());
+         rockSprite.setPosition(r.x * gridCellSizePixels, r.y * gridCellSizePixels);
+         rockSprite.draw(batch);
       }
       goal.draw(batch);
       player.draw(batch, delta);
