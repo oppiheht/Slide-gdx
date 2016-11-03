@@ -104,6 +104,7 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       switch(state) {
       case GAME_ACTIVE: {
          queryInputHandlers(delta);
+         queryBackButtonPressed();
          draw(delta);
          checkLevelCompleted();
          renderUpdate(delta);
@@ -116,7 +117,13 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       }
 
    }
-   
+
+   protected void queryBackButtonPressed() {
+      if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {
+         state = STATE.GAME_OVER;
+      }
+   }
+
    protected abstract void renderUpdate(float delta);
    
    protected abstract void onPlayerMove();
