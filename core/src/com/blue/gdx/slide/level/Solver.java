@@ -19,15 +19,15 @@ public class Solver {
     *         is unable to be solved.
     */
    public static String solveLevel(Level level) {
-      HashSet<Node> visitedNodes = new HashSet<Node>();
+      HashSet<Node> visitedNodes = new HashSet<>();
       NodePath currentNodePath;
       Node currentNode;
 
-      LinkedList<NodePath> fringe = new LinkedList<NodePath>();
+      LinkedList<NodePath> fringe = new LinkedList<>();
       fringe.add(new NodePath(level.getStartNode(), ""));
 
       while (!fringe.isEmpty()) {
-         currentNodePath = fringe.pop();
+         currentNodePath = fringe.removeFirst();
          currentNode = currentNodePath.node;
          if (currentNode.getType() == Node.END) {
             return currentNodePath.path;

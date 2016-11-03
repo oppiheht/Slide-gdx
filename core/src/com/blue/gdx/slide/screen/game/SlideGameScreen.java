@@ -52,7 +52,6 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    protected SpriteBatch batch;
    protected BitmapFont font;
 
-   protected Rock rock;
    protected Player player;
    protected Goal goal;
    protected Background background;
@@ -81,7 +80,7 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       camera.position.set(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2 , 0);
       camera.update();
       
-      inputHandlers = new ArrayList<InputHandler>();
+      inputHandlers = new ArrayList<>();
       inputHandlers.add(new TouchInputHandler());
       inputHandlers.add(new KeyboardInputHandler());
       
@@ -89,7 +88,7 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       player = new Player(game.getAssetManager().get(SlideAssetManager.PLAYER, Texture.class), gridCellSizePixels);
       goal = new Goal(game.getAssetManager().get(SlideAssetManager.GOAL, Texture.class), gridCellSizePixels);
 
-      List<Rock> rocks = new ArrayList<Rock>(3);
+      List<Rock> rocks = new ArrayList<>(3);
       rocks.add(new Rock(game.getAssetManager().get(SlideAssetManager.ROCK1, Texture.class), gridCellSizePixels));
       rocks.add(new Rock(game.getAssetManager().get(SlideAssetManager.ROCK2, Texture.class), gridCellSizePixels));
       rocks.add(new Rock(game.getAssetManager().get(SlideAssetManager.ROCK3, Texture.class), gridCellSizePixels));
@@ -164,7 +163,7 @@ public abstract class SlideGameScreen extends ScreenAdapter {
          return;
       }
       
-      Direction inputDirection = null;
+      Direction inputDirection;
       for (InputHandler input : inputHandlers) {
          inputDirection = input.queryInputDirection();
          if (inputDirection != null) {

@@ -36,10 +36,10 @@ public class Level {
    }
 
    public Node getStartNode() {
-      for (int i = 0; i < grid.length; i++) {
-         for (int j = 0; j < grid[i].length; j++) {
-            if (grid[i][j].getType() == Node.START) {
-               return grid[i][j];
+      for (Node[] row : grid) {
+         for (Node node : row) {
+            if (node.getType() == Node.START) {
+               return node;
             }
          }
       }
@@ -47,19 +47,17 @@ public class Level {
    }
 
    public Node getEndNode() {
-      for (int i = 0; i < grid.length; i++) {
-         for (int j = 0; j < grid[i].length; j++) {
-            if (grid[i][j].getType() == Node.END) {
-               return grid[i][j];
+      for (Node[] row : grid) {
+         for (Node node : row) {
+            if (node.getType() == Node.END) {
+               return node;
             }
          }
       }
       throw new RuntimeException("End Node Not Found\n" + this.toString());
    }
 
-   /**
-    * @override
-    */
+    @Override
    public String toString() {
       String s = "";
 
@@ -95,15 +93,14 @@ public class Level {
    }
 
    public Node getNodeAt(int x, int y) {
-      Node node = null;
       if (x >= rows || y >= cols || x < 0 || y < 0) {
-         return node;
+         return null;
       }
       return grid[x][y];
    }
 
    public List<Node> getWalls() {
-      ArrayList<Node> nodes = new ArrayList<Node>();
+      ArrayList<Node> nodes = new ArrayList<>();
       for (int i = 0; i < grid.length; i++) {
          for (int j = 0; j < grid[i].length; j++) {
             if (getNodeAt(i, j).getType() == Node.WALL) {
