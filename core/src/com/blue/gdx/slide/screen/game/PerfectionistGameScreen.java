@@ -1,6 +1,5 @@
 package com.blue.gdx.slide.screen.game;
 
-import com.badlogic.gdx.Gdx;
 import com.blue.gdx.slide.SlideGame;
 
 public class PerfectionistGameScreen extends SlideGameScreen {
@@ -19,22 +18,13 @@ public class PerfectionistGameScreen extends SlideGameScreen {
    }
 
    @Override
-   protected void drawStatusText() {
-      drawScore();
-   }
-   
-   private void drawScore() {
-      font.draw(batch,
-            "Score: "+score+"\nMoves: "+moves,
-            STATUS_FONT_X, 
-            Gdx.graphics.getHeight() - 200);
-      
+   protected String getStatusText() {
+      return "Score: "+score+"\nMoves: "+moves;
    }
 
    @Override
-   protected void drawGameOver() {
-      // TODO Auto-generated method stub
-      
+   protected String getGameOverText() {
+      return "Game Over!\nYou completed " + score + " levels";
    }
 
    @Override

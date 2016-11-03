@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.utils.Align;
 import com.blue.gdx.slide.GameWorld;
 import com.blue.gdx.slide.SlideGame;
 import com.blue.gdx.slide.input.InputHandler;
@@ -72,6 +73,7 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    public void show() {
       batch = new SpriteBatch();
       font = game.getAssetManager().get(SlideAssetManager.FONTFILE, BitmapFont.class);
+      font.getData().setScale(Gdx.graphics.getDensity());
       
       gridCellSizePixels = Gdx.graphics.getWidth() / WORLD_WIDTH_CELLS;
       
@@ -121,9 +123,33 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    
    protected abstract void onLevelCompleted();
    
-   protected abstract void drawStatusText();
+   protected abstract String getStatusText();
    
-   protected abstract void drawGameOver();
+   protected abstract String getGameOverText();
+   
+   protected void drawStatusText() {
+      font.draw(batch,
+           getStatusText(),
+           STATUS_FONT_X, 
+           Gdx.graphics.getHeight() * 0.7f);
+   }
+   
+   protected void drawGameOver() {
+         batch.setProjectionMatrix(camera.projection);
+         batch.setTransformMatrix(camera.view);
+         batch.begin();
+         
+         font.draw(
+               batch, 
+               getGameOverText(), 
+               Gdx.graphics.getWidth() * 0.05f,
+               Gdx.graphics.getHeight() / 2,
+               Gdx.graphics.getWidth() * 0.9f,
+               Align.center,
+               true);
+         
+         batch.end();
+   }
    
    protected void queryInputHandlers(float delta) {
       lastInputTime -= delta;
@@ -141,7 +167,6 @@ public abstract class SlideGameScreen extends ScreenAdapter {
          }
       }
    }
-   
 
    protected void movePlayerDirection(Direction inputDirection) {
       world.movePlayer(inputDirection);
@@ -166,6 +191,7 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       boolean resetPressed = Gdx.input.isKeyJustPressed(Input.Keys.R);
       if (resetPressed || Gdx.input.isTouched()) {
          game.setScreen(new StartScreen(game));
+         dispose();
       }
    }
    

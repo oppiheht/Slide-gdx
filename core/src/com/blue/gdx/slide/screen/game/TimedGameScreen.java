@@ -1,6 +1,5 @@
 package com.blue.gdx.slide.screen.game;
 
-import com.badlogic.gdx.Gdx;
 import com.blue.gdx.slide.SlideGame;
 
 public class TimedGameScreen extends SlideGameScreen {
@@ -39,37 +38,16 @@ public class TimedGameScreen extends SlideGameScreen {
       }
    }
    
-   
+
    @Override
-   protected void drawStatusText() {
-      drawScore();
-      drawTimer();
-   }
-   
-   private void drawScore() {
-      font.draw(batch,
-            "Time Left:  " + formatTime(timer) + "\nScore: "+score+"\nMoves: "+moves+" of "+world.getSolutionLength(), 
-            STATUS_FONT_X, 
-            Gdx.graphics.getHeight() - 160);
-      
-   }
-   
-   private void drawTimer() {
-      font.draw(batch, "", 20, Gdx.graphics.getHeight() - 175);
+   protected String getStatusText() {
+      return "Time Left:  " + formatTime(timer) + 
+            "\nScore: " + score + 
+            "\nMoves: "+moves+" of "+world.getSolutionLength();
    }
    
    @Override
-   protected void drawGameOver() {
-      batch.setProjectionMatrix(camera.projection);
-      batch.setTransformMatrix(camera.view);
-      batch.begin();
-      
-      font.draw(
-            batch, 
-            "Game Over! You completed "+score+" levels", 
-            20, 
-            Gdx.graphics.getHeight() / 2);
-      
-      batch.end();
+   protected String getGameOverText() {
+      return "Game Over! You completed "+score+" levels";
    }
 }
