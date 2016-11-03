@@ -4,7 +4,7 @@ import com.blue.gdx.slide.SlideGame;
 
 public class InfiniteGameScreen extends SlideGameScreen {
 
-   private static final float STARTING_TIME = 1L;
+   private static final float STARTING_TIME = 30L;
    private static final float LEVEL_COMPLETION_TIME_BONUS = 7L;
 
    private float timer = STARTING_TIME;
