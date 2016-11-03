@@ -196,7 +196,7 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    
    protected void queryGameOverInput() {
       boolean resetPressed = Gdx.input.isKeyJustPressed(Input.Keys.R);
-      if (resetPressed || Gdx.input.isTouched()) {
+      if (resetPressed || Gdx.input.justTouched()) {
          game.setScreen(new StartScreen(game));
          dispose();
       }
