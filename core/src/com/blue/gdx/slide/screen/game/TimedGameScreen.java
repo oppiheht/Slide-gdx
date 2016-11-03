@@ -48,6 +48,6 @@ public class TimedGameScreen extends SlideGameScreen {
    
    @Override
    protected String getGameOverText() {
-      return "Game Over! You completed "+score+" levels";
+      return "Game Over!\nYou completed "+score+" levels";
    }
 }
