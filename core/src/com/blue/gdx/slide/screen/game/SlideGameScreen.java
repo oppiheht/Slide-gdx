@@ -183,7 +183,10 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    }
 
    protected String formatTime(float seconds) {
-      return (int)seconds / 60 + ":" + (int)seconds % 60;
+      int minutes = (int)seconds / 60;
+      int remSeconds = (int)seconds % 60;
+      String zeroPadding = remSeconds < 10 ? "0" : "";
+      return minutes + ":" +zeroPadding + remSeconds;
    }
    
    protected void checkLevelCompleted() {
