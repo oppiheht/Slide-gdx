@@ -2,7 +2,8 @@ Todo:
 -------
 Back-to-start button in timed + infinite mode
 Feedback when completing a level
-
+back button on game over screen
+input delay (2 seconds) on game over screen
 
 Extra:
 -------
