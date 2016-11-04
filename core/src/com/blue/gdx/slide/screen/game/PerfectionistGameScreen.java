@@ -5,9 +5,7 @@ import com.blue.gdx.slide.SlideGame;
 public class PerfectionistGameScreen extends SlideGameScreen {
 
    private int moves = 0;
-   private int score = 0;
 
-   
    public PerfectionistGameScreen(SlideGame game) {
       super(game);
    }
@@ -20,11 +18,6 @@ public class PerfectionistGameScreen extends SlideGameScreen {
    @Override
    protected String getStatusText() {
       return "Score: "+score+"\nMoves: "+moves;
-   }
-
-   @Override
-   protected String getGameOverText() {
-      return "Game Over!\nYou completed " + score + " levels";
    }
 
    @Override

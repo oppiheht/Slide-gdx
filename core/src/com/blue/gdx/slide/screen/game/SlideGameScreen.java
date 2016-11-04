@@ -63,6 +63,8 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    protected float inputDelay = .05f;
    protected float lastInputTime = 0f;
    protected List<InputHandler> inputHandlers;
+
+   protected int score = 0;
    
    public SlideGameScreen(SlideGame game) {
       this.game = game;
@@ -131,7 +133,9 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    
    protected abstract String getStatusText();
    
-   protected abstract String getGameOverText();
+   protected String getGameOverText() {
+      return "Game Over!\nYou completed " + score + " level" + (score == 1 ? "" : "s");
+   }
    
    protected void drawStatusText() {
       font.draw(batch,

@@ -8,8 +8,7 @@ public class TimedGameScreen extends SlideGameScreen {
 
    private float timer = TIMED_MODE_DURATION;
    private int moves = 0;
-   private int score = 0;
-   
+
    public TimedGameScreen(SlideGame game) {
       super(game);
    }
@@ -46,8 +45,4 @@ public class TimedGameScreen extends SlideGameScreen {
             "\nMoves: "+moves+" of "+world.getSolutionLength();
    }
    
-   @Override
-   protected String getGameOverText() {
-      return "Game Over!\nYou completed "+score+" levels";
-   }
 }

@@ -8,8 +8,7 @@ public class InfiniteGameScreen extends SlideGameScreen {
    private static final float LEVEL_COMPLETION_TIME_BONUS = 7L;
 
    private float timer = STARTING_TIME;
-   private int score = 0;
-   
+
    public InfiniteGameScreen(SlideGame game) {
       super(game);
    }
@@ -29,11 +28,6 @@ public class InfiniteGameScreen extends SlideGameScreen {
    @Override
    protected String getStatusText() {
       return "\nTime Left:  " + formatTime(timer);
-   }
-   
-   @Override
-   protected String getGameOverText() {
-      return "Game Over!\n You completed "+score+" levels";
    }
    
    @Override
