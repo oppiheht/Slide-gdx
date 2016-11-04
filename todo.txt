@@ -8,3 +8,8 @@ input delay (2 seconds) on game over screen
 Extra:
 -------
 Persist high scores locally
+Total levels solved in all modes
+Actual infinite mode, no time/move constraints
+music
+menu animations
+player animations
