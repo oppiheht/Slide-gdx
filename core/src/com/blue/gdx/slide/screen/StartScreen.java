@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.AlphaAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
@@ -57,9 +59,13 @@ public class StartScreen extends ScreenAdapter {
             
       stage.addActor(background);
       stage.addActor(logo);
+      logo.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(3)));
       stage.addActor(playTimedButton);
+      playTimedButton.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(3)));
       stage.addActor(playPerfectionistButton);
+      playPerfectionistButton.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(3)));
       stage.addActor(playInfiniteButton);
+      playInfiniteButton.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(3)));
    }
 
    private void createPlayTimedButton() {
