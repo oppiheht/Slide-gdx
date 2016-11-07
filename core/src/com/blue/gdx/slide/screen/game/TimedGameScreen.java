@@ -4,7 +4,8 @@ import com.blue.gdx.slide.SlideGame;
 
 public class TimedGameScreen extends SlideGameScreen {
 
-   private static final float TIMED_MODE_DURATION = 120L;
+   private static final float TIMED_MODE_DURATION = 90L;
+   private static final float LEVEL_COMPLETION_TIME_BONUS = 7L;
 
    private float timer = TIMED_MODE_DURATION;
    private int moves = 0;
@@ -28,6 +29,7 @@ public class TimedGameScreen extends SlideGameScreen {
    protected void onLevelCompleted() {
       moves = 0;
       score++;
+      timer += LEVEL_COMPLETION_TIME_BONUS;
    }
    
    private void decrementTimer(float delta) {
@@ -41,8 +43,7 @@ public class TimedGameScreen extends SlideGameScreen {
    @Override
    protected String getStatusText() {
       return "Time Left:  " + formatTime(timer) + 
-            "\nScore: " + score + 
-            "\nMoves: "+moves+" of "+world.getSolutionLength();
+            "\nScore: " + score;
    }
    
 }

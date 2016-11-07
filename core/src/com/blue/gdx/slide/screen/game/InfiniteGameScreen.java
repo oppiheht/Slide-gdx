@@ -4,30 +4,18 @@ import com.blue.gdx.slide.SlideGame;
 
 public class InfiniteGameScreen extends SlideGameScreen {
 
-   private static final float STARTING_TIME = 30L;
-   private static final float LEVEL_COMPLETION_TIME_BONUS = 7L;
-
-   private float timer = STARTING_TIME;
-
    public InfiniteGameScreen(SlideGame game) {
       super(game);
    }
 
    @Override
    protected void renderUpdate(float delta) {
-      decrementTimer(delta);
+      //intentionally empty
    }
-   
-   private void decrementTimer(float delta) {
-      timer -= delta;
-      if (timer < 0) {
-         state = STATE.GAME_OVER;
-      }
-   }
-   
+
    @Override
    protected String getStatusText() {
-      return "\nTime Left:  " + formatTime(timer);
+      return "\nLevels Completed:  " + score;
    }
    
    @Override
@@ -38,7 +26,6 @@ public class InfiniteGameScreen extends SlideGameScreen {
    @Override
    protected void onLevelCompleted() {
       score++;
-      timer += LEVEL_COMPLETION_TIME_BONUS;
    }
 
 }
