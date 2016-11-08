@@ -24,7 +24,7 @@ public class PerfectionistGameScreen extends SlideGameScreen {
    protected void onPlayerMove() {
       moves++;
       if (moves > world.getSolutionLength()) {
-         state = STATE.GAME_OVER;
+         gameOver();
       }
    }
 

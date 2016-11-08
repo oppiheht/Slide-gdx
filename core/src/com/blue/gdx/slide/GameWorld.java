@@ -1,51 +1,48 @@
 package com.blue.gdx.slide;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.blue.gdx.slide.level.Direction;
 import com.blue.gdx.slide.level.Level;
 import com.blue.gdx.slide.level.Node;
 import com.blue.gdx.slide.level.SolvableLevelFactory;
 import com.blue.gdx.slide.level.Solver;
-import com.blue.gdx.slide.sprite.Player;
-import com.blue.gdx.slide.sprite.Rock;
+import com.blue.gdx.slide.actor.Goal;
+import com.blue.gdx.slide.actor.Player;
+import com.blue.gdx.slide.actor.Rock;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GameWorld {
+
    private Level level;
-   private List<Rectangle> rockRectangles = new ArrayList<Rectangle>();
-   private Rectangle endRect;
    private Player player;
  
-   private List<Rock> rockSprites;
-   private Sprite goal;
-   private int gridCellSizePixels;
+   private List<Rock> rockActors;
+   private Goal goal;
 
-   public GameWorld(int size, int gridCellSizePixels, List<Rock> rocks, Player player, Sprite goal) {
-      this.rockSprites = rocks;
+   public GameWorld(int size, List<Rock> rocks, Player player, Goal goal) {
+      this.rockActors = rocks;
       this.player = player;
       this.goal = goal;
-      this.gridCellSizePixels = gridCellSizePixels;
       createNewLevel(size);
    }
 
    public void createNewLevel(int size) {
       level = SolvableLevelFactory.newSolvableLevel(size, size);
-      rockRectangles.clear();
-      for (Node node : level.getWalls()) {
-         rockRectangles.add(nodeToRectangle(node));
+      int i = 0;
+      for (; i < level.getWalls().size(); i++) {
+         Node node = level.getWalls().get(i);
+         rockActors.get(i).setPosition(node.getX(), node.getY());
       }
-      endRect = nodeToRectangle(level.getEndNode());
-      
+      for (; i < rockActors.size(); i++) {
+         rockActors.get(i).hide();
+      }
+
       player.setPosition(level.getStartNode().getX(), level.getStartNode().getY());
-      goal.setPosition(level.getEndNode().getX() * gridCellSizePixels, level.getEndNode().getY() * gridCellSizePixels);
+      goal.setPosition(level.getEndNode().getX(), level.getEndNode().getY());
    }
    
    public boolean isSolved() {
-      return endRect.x == player.getWorldX() && endRect.y == player.getWorldY();
+      return goal.getWorldX() == player.getWorldX() && goal.getWorldY() == player.getWorldY();
    }
    
    public int getSolutionLength() {
@@ -55,20 +52,5 @@ public class GameWorld {
    public void movePlayer(Direction direction) {
       Node newPosition = Solver.slideDirection(direction, level, level.getNodeAt(player.getWorldX(), player.getWorldY()));
       player.setPosition(newPosition.getX(), newPosition.getY());
-   }
-
-   public void draw(SpriteBatch batch, float delta) {
-      for (int i = 0; i < rockRectangles.size(); i++) {
-         Rectangle r = rockRectangles.get(i);
-         Rock rockSprite = rockSprites.get(i % rockSprites.size());
-         rockSprite.setPosition(r.x * gridCellSizePixels, r.y * gridCellSizePixels);
-         rockSprite.draw(batch);
-      }
-      goal.draw(batch);
-      player.draw(batch, delta);
-   }
-   
-   private Rectangle nodeToRectangle(Node node) {
-      return new Rectangle(node.getX(), node.getY(), gridCellSizePixels, gridCellSizePixels);
    }
 }

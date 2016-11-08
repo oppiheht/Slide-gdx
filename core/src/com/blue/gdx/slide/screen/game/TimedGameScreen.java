@@ -35,7 +35,7 @@ public class TimedGameScreen extends SlideGameScreen {
    private void decrementTimer(float delta) {
       timer -= delta;
       if (timer < 0) {
-         state = STATE.GAME_OVER;
+         gameOver();
       }
    }
    

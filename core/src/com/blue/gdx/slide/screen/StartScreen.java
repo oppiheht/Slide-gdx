@@ -1,14 +1,13 @@
 package com.blue.gdx.slide.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.actions.AlphaAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
@@ -16,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.blue.gdx.slide.SlideGame;
+import com.blue.gdx.slide.actor.Background;
 import com.blue.gdx.slide.screen.game.InfiniteGameScreen;
 import com.blue.gdx.slide.screen.game.PerfectionistGameScreen;
 import com.blue.gdx.slide.screen.game.TimedGameScreen;
@@ -31,8 +31,7 @@ public class StartScreen extends ScreenAdapter {
    private ImageButton playTimedButton;
    private ImageButton playPerfectionistButton;
    private ImageButton playInfiniteButton;
-   protected BitmapFont font;
-   
+
    public StartScreen(SlideGame game) {
       this.game = game;
    }
@@ -42,12 +41,8 @@ public class StartScreen extends ScreenAdapter {
       stage = new Stage(new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
       Gdx.input.setInputProcessor(stage);
       
-      font = new BitmapFont();
+      Background background = new Background(game.getAssetManager());
 
-      Texture backgroundTexture = game.getAssetManager().get(SlideAssetManager.BACKGROUND, Texture.class);
-      Image background = new Image(backgroundTexture);
-      background.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-      
       gameLogoTexture = game.getAssetManager().get(SlideAssetManager.LOGO, Texture.class);
       Image logo = new Image(gameLogoTexture);
       logo.setSize(Gdx.graphics.getWidth() * 0.8f, Gdx.graphics.getHeight() * 0.2f);
@@ -134,6 +129,13 @@ public class StartScreen extends ScreenAdapter {
    public void render(float delta) {
       stage.act(delta);
       stage.draw();
+      queryBackButtonPressed();
+   }
+
+   protected void queryBackButtonPressed() {
+      if (Gdx.input.isKeyJustPressed(Input.Keys.BACK)) {
+         Gdx.app.exit();
+      }
    }
    
    @Override
