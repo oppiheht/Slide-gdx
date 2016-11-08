@@ -37,7 +37,7 @@ public class GameWorld {
          rockActors.get(i).hide();
       }
 
-      player.setPosition(level.getStartNode().getX(), level.getStartNode().getY());
+      player.setStartPosition(level.getStartNode().getX(), level.getStartNode().getY());
       goal.setPosition(level.getEndNode().getX(), level.getEndNode().getY());
    }
    

@@ -46,4 +46,9 @@ public class Player extends SlideActor {
       setRotation(getRotation() + (rotationSpeed * delta) % 360f);
    }
 
+   public void setStartPosition(int x, int y) {
+      addAction(Actions.moveTo(x * size, y * size, 1.0f, Interpolation.pow2));
+      worldX = (int) x;
+      worldY = (int) y;
+   }
 }
