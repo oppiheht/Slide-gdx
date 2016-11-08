@@ -38,7 +38,11 @@ public class TimedGameScreen extends SlideGameScreen {
          gameOver();
       }
    }
-   
+
+   @Override
+   protected void updateScoreKeeper() {
+      game.getHighScoreKeeper().timedModeCompleted(score);
+   }
 
    @Override
    protected String getStatusText() {

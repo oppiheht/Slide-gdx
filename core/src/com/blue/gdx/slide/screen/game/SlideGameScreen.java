@@ -125,7 +125,10 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    
    protected abstract String getStatusText();
 
+   protected abstract void updateScoreKeeper();
+
    protected void gameOver() {
+      updateScoreKeeper();
       game.setScreen(new GameOverScreen(game, getGameOverText()));
       dispose();
    }

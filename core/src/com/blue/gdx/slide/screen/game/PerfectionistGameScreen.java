@@ -29,6 +29,11 @@ public class PerfectionistGameScreen extends SlideGameScreen {
    }
 
    @Override
+   protected void updateScoreKeeper() {
+      game.getHighScoreKeeper().perfectModeCompleted(score);
+   }
+
+   @Override
    protected void onLevelCompleted() {
       moves = 0;
       score++;
