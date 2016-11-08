@@ -3,6 +3,8 @@ package com.blue.gdx.slide.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -31,6 +33,7 @@ public class StartScreen extends ScreenAdapter {
    private ImageButton playTimedButton;
    private ImageButton playPerfectionistButton;
    private ImageButton playInfiniteButton;
+   private ImageButton scoresButton;
 
    public StartScreen(SlideGame game) {
       this.game = game;
@@ -51,16 +54,20 @@ public class StartScreen extends ScreenAdapter {
       createPlayTimedButton();
       createPlayPerfectionistButton();
       createPlayInfiniteButton();
+      createScoresButton();
             
       stage.addActor(background);
+      background.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(3)));
       stage.addActor(logo);
-      logo.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(3)));
+      logo.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(2)));
       stage.addActor(playTimedButton);
-      playTimedButton.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(3)));
+      playTimedButton.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(2)));
       stage.addActor(playPerfectionistButton);
-      playPerfectionistButton.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(3)));
+      playPerfectionistButton.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(2)));
       stage.addActor(playInfiniteButton);
-      playInfiniteButton.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(3)));
+      playInfiniteButton.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(2)));
+      stage.addActor(scoresButton);
+      scoresButton.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(2)));
    }
 
    private void createPlayTimedButton() {
@@ -90,7 +97,7 @@ public class StartScreen extends ScreenAdapter {
                   new TextureRegion(game.getAssetManager().get(SlideAssetManager.PLAYPERFECTIONISTBUTTON, Texture.class)))
             );
       playPerfectionistButton.setWidth(Gdx.graphics.getWidth() * 0.7f);
-      playPerfectionistButton.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() * 0.35f, Align.center);
+      playPerfectionistButton.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() * 0.38f, Align.center);
       playPerfectionistButton.addListener(new ActorGestureListener() {
          @Override
          public void tap(InputEvent event, float x, float y, int count, int button) {
@@ -109,7 +116,7 @@ public class StartScreen extends ScreenAdapter {
                   new TextureRegion(game.getAssetManager().get(SlideAssetManager.PLAYINFINITEBUTTON, Texture.class)))
             );
       playInfiniteButton.setWidth(Gdx.graphics.getWidth() * 0.7f);
-      playInfiniteButton.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() * 0.2f, Align.center);
+      playInfiniteButton.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() * 0.26f, Align.center);
       playInfiniteButton.addListener(new ActorGestureListener() {
          @Override
          public void tap(InputEvent event, float x, float y, int count, int button) {
@@ -119,7 +126,26 @@ public class StartScreen extends ScreenAdapter {
          }
       });
    }
-   
+
+   private void createScoresButton() {
+      scoresButton = new ImageButton(
+            new TextureRegionDrawable(
+                  new TextureRegion(game.getAssetManager().get(SlideAssetManager.SCORESBUTTON, Texture.class))),
+            new TextureRegionDrawable(
+                  new TextureRegion(game.getAssetManager().get(SlideAssetManager.SCORESBUTTON, Texture.class)))
+      );
+      scoresButton.setWidth(Gdx.graphics.getWidth() * 0.7f);
+      scoresButton.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() * 0.14f, Align.center);
+      scoresButton.addListener(new ActorGestureListener() {
+         @Override
+         public void tap(InputEvent event, float x, float y, int count, int button) {
+            super.tap(event, x, y, count, button);
+            game.setScreen(new ScoresScreen(game));
+            dispose();
+         }
+      });
+   }
+
    @Override
    public void resize(int width, int height) {
       stage.getViewport().update(width, height, true);
@@ -127,6 +153,9 @@ public class StartScreen extends ScreenAdapter {
    
    @Override
    public void render(float delta) {
+      Gdx.gl.glClearColor(0, 0, 0, 0);
+      Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
       stage.act(delta);
       stage.draw();
       queryBackButtonPressed();

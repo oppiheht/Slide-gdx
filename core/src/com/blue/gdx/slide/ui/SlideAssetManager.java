@@ -16,6 +16,7 @@ public class SlideAssetManager extends AssetManager {
    public static String PLAYTIMEDBUTTON = assetLocation+"/playTimedButton.png";
    public static String PLAYINFINITEBUTTON = assetLocation+"/playInfiniteButton.png";
    public static String PLAYPERFECTIONISTBUTTON = assetLocation+"/playPerfectionistButton.png";
+   public static String SCORESBUTTON = assetLocation+"/scoresButton.png";
 
    public static final String[] ROCKS = {
            assetLocation+"/asteroid1.png",
@@ -33,6 +34,7 @@ public class SlideAssetManager extends AssetManager {
       load(PLAYTIMEDBUTTON, Texture.class);
       load(PLAYINFINITEBUTTON, Texture.class);
       load(PLAYPERFECTIONISTBUTTON, Texture.class);
+      load(SCORESBUTTON, Texture.class);
       for (String s : ROCKS) {
          load(s, Texture.class);
       }
