@@ -8,9 +8,12 @@ import com.blue.gdx.slide.ui.SlideAssetManager;
 
 public class Background extends Image {
 
+   //On some devices, the left side of the screen has a pixel bleeding issue. Upping the image size fixes this
+   private final int PIXEL_BLEED_PADDING = 1;
+
    public Background(AssetManager assetManager) {
       super(assetManager.get(SlideAssetManager.BACKGROUND, Texture.class));
-      setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+      setSize(Gdx.graphics.getWidth() + PIXEL_BLEED_PADDING, Gdx.graphics.getHeight() + PIXEL_BLEED_PADDING);
    }
 
 }
