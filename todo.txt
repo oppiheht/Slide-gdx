@@ -1,13 +1,10 @@
 Todo:
 -------
 Back-to-start button in timed + infinite mode
-Feedback when completing a level
 back button on game over screen
-input delay (2 seconds) on game over screen
 
 Extra:
 -------
 Persist high scores locally
 Total levels solved in all modes
 music
-player animations
