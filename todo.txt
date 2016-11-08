@@ -5,6 +5,4 @@ back button on game over screen
 
 Extra:
 -------
-Persist high scores locally
-Total levels solved in all modes
 music
