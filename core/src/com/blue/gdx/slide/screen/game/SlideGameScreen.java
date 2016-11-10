@@ -4,8 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.blue.gdx.slide.GameWorld;
 import com.blue.gdx.slide.SlideGame;
@@ -19,6 +26,8 @@ import com.blue.gdx.slide.input.KeyboardInputHandler;
 import com.blue.gdx.slide.input.TouchInputHandler;
 import com.blue.gdx.slide.level.Direction;
 import com.blue.gdx.slide.screen.GameOverScreen;
+import com.blue.gdx.slide.util.ButtonFactory;
+import com.blue.gdx.slide.util.SlideAssetManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +73,7 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    public void show() {
       gridCellSizePixels = Gdx.graphics.getWidth() / WORLD_WIDTH_CELLS;
       stage = new Stage(new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+      Gdx.input.setInputProcessor(stage);
 
       statusText = new StatusText(game.getAssetManager());
       statusText.setPosition(STATUS_FONT_X, Gdx.graphics.getHeight() * 0.7f);
@@ -93,17 +103,30 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       gameArea.addActor(goal);
       gameArea.setPosition(gridCellSizePixels * SIDE_PADDING_CELLS, gridCellSizePixels * BOTTOM_PADDING_CELLS);
       stage.addActor(gameArea);
+      ImageButton backButton = createBackButton();
+      stage.addActor(backButton);
 
       world = new GameWorld(LEVEL_SIZE, rocks, player, goal);
    }
-   
+
+   private ImageButton createBackButton() {
+      ImageButton backButton = ButtonFactory.createBackButton(game.getAssetManager(), new ActorGestureListener() {
+         @Override
+         public void tap(InputEvent event, float x, float y, int count, int button) {
+            super.tap(event, x, y, count, button);
+            gameOver();
+         }
+      });
+      return backButton;
+   }
+
    @Override
    public void render(float delta) {
       Gdx.gl.glClearColor(0, 0, 0, 0);
       Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
       queryInputHandlers(delta);
-      queryBackButtonPressed();
+      queryBackKeyPressed();
       statusText.setText(getStatusText());
       stage.act(delta);
       stage.draw();
@@ -111,7 +134,7 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       renderUpdate(delta);
    }
 
-   protected void queryBackButtonPressed() {
+   protected void queryBackKeyPressed() {
       if (Gdx.input.isKeyJustPressed(Input.Keys.BACK)) {
          gameOver();
       }

@@ -64,10 +64,10 @@ public class ScoresScreen extends ScreenAdapter {
 
       stage.act(delta);
       stage.draw();
-      queryBackButtonPressed();
+      queryBackKeyPressed();
    }
 
-   protected void queryBackButtonPressed() {
+   protected void queryBackKeyPressed() {
       if (Gdx.input.isKeyJustPressed(Input.Keys.BACK)) {
          game.setScreen(new StartScreen(game));
          dispose();
