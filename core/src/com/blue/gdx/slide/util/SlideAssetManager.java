@@ -1,4 +1,4 @@
-package com.blue.gdx.slide.ui;
+package com.blue.gdx.slide.util;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;

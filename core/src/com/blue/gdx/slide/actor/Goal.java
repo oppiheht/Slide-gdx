@@ -2,7 +2,7 @@ package com.blue.gdx.slide.actor;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.blue.gdx.slide.ui.SlideAssetManager;
+import com.blue.gdx.slide.util.SlideAssetManager;
 
 public class Goal extends SlideActor {
 

@@ -3,7 +3,7 @@ package com.blue.gdx.slide;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.blue.gdx.slide.screen.StartScreen;
-import com.blue.gdx.slide.ui.SlideAssetManager;
+import com.blue.gdx.slide.util.SlideAssetManager;
 import com.blue.gdx.slide.util.HighScoreKeeper;
 
 public class SlideGame extends Game {

@@ -4,7 +4,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.blue.gdx.slide.ui.SlideAssetManager;
+import com.blue.gdx.slide.util.SlideAssetManager;
 
 import java.util.Random;
 
