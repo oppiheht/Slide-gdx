@@ -28,15 +28,6 @@ public abstract class SlideActor extends Image {
         setOrigin(size/2, size/2);
     }
 
-    protected abstract float getAnimationDuration();
-
-    @Override
-    public void setPosition(float x, float y) {
-       addAction(Actions.moveTo(x * size, y * size, getAnimationDuration(), Interpolation.pow2));
-       worldX = (int) x;
-       worldY = (int) y;
-    }
-
     public void setDrawable(Texture t) {
         setDrawable(new TextureRegionDrawable(new TextureRegion(t)));
     }
@@ -48,6 +39,5 @@ public abstract class SlideActor extends Image {
     public int getWorldY() {
         return worldY;
     }
-
 
 }

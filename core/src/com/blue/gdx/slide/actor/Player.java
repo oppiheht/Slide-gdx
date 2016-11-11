@@ -18,11 +18,6 @@ public class Player extends SlideActor {
       rotateRandomly();
    }
 
-   @Override
-   protected float getAnimationDuration() {
-      return 0.01f;
-   }
-
    public void rotateRandomly() {
       //between -10.0 and 10.0, with one decimal place
       rotationSpeed = (rand.nextInt(100) - 50) / 5f;
@@ -31,7 +26,7 @@ public class Player extends SlideActor {
    @Override
    public void setPosition(float x, float y) {
       float distance = (Math.abs(x - worldX) + Math.abs(y - worldY));
-      addAction(Actions.moveTo(x * size, y * size, getAnimationDuration() * distance, Interpolation.pow2));
+      addAction(Actions.moveTo(x * size, y * size, 0.01f * distance, Interpolation.pow2));
       worldX = (int) x;
       worldY = (int) y;
    }
@@ -47,8 +42,9 @@ public class Player extends SlideActor {
    }
 
    public void setStartPosition(int x, int y) {
-      addAction(Actions.moveTo(x * size, y * size, 1.0f, Interpolation.pow2));
-      worldX = (int) x;
-      worldY = (int) y;
+      setRotation(0);
+      addAction(Actions.sequence(Actions.moveTo(x * size, y * size), Actions.alpha(0), Actions.fadeIn(2)));
+      worldX = x;
+      worldY = y;
    }
 }

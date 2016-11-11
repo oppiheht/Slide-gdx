@@ -2,7 +2,9 @@ package com.blue.gdx.slide.actor;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.blue.gdx.slide.util.SlideAssetManager;
 
 public class Rock extends SlideActor {
@@ -14,13 +16,10 @@ public class Rock extends SlideActor {
    }
 
    @Override
-   protected float getAnimationDuration() {
-      return 1.0f;
-   }
-
-   @Override
    public void setPosition(float x, float y) {
-      super.setPosition(x, y);
+      addAction(Actions.moveTo(x * size, y * size, 1.0f, Interpolation.pow2));
+      this.worldX = (int) x;
+      this.worldX = (int) y;
       setVisible(true);
    }
 
