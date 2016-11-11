@@ -4,22 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.blue.gdx.slide.GameWorld;
 import com.blue.gdx.slide.SlideGame;
 import com.blue.gdx.slide.actor.Background;
-import com.blue.gdx.slide.actor.Goal;
-import com.blue.gdx.slide.actor.Player;
-import com.blue.gdx.slide.actor.Rock;
 import com.blue.gdx.slide.actor.StatusText;
 import com.blue.gdx.slide.input.InputHandler;
 import com.blue.gdx.slide.input.KeyboardInputHandler;
@@ -27,7 +20,6 @@ import com.blue.gdx.slide.input.TouchInputHandler;
 import com.blue.gdx.slide.level.Direction;
 import com.blue.gdx.slide.screen.GameOverScreen;
 import com.blue.gdx.slide.util.ButtonFactory;
-import com.blue.gdx.slide.util.SlideAssetManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,22 +27,14 @@ import java.util.List;
 public abstract class SlideGameScreen extends ScreenAdapter {
    
    protected SlideGame game;
-   
-   public static final int LEVEL_SIZE = 12;
-   public static final int WORLD_WIDTH_CELLS = LEVEL_SIZE + 1;
-   
+
    protected float SIDE_PADDING_CELLS = 0.5F;
    protected float BOTTOM_PADDING_CELLS = 3;
    
    protected static final int STATUS_FONT_X = 18;
 
-   public int gridCellSizePixels = 0;
-
    private Stage stage;
 
-   protected Player player;
-   protected Goal goal;
-   protected List<Rock> rocks;
    protected Background background;
    protected StatusText statusText;
    protected Group gameArea;
@@ -71,7 +55,6 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    
    @Override
    public void show() {
-      gridCellSizePixels = Gdx.graphics.getWidth() / WORLD_WIDTH_CELLS;
       stage = new Stage(new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
       Gdx.input.setInputProcessor(stage);
 
@@ -83,41 +66,29 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       inputHandlers.add(new KeyboardInputHandler());
 
       background = new Background(game.getAssetManager());
-      player = new Player(game.getAssetManager(), gridCellSizePixels);
-      goal = new Goal(game.getAssetManager(), gridCellSizePixels);
 
       stage.addActor(background);
 
+      int gridCellSizePixels = Gdx.graphics.getWidth() / GameWorld.WORLD_WIDTH_CELLS;
       gameArea = new Group();
-      gameArea.addActor(statusText);
-
-      int rockPoolSize = LEVEL_SIZE * LEVEL_SIZE / 2;
-      rocks = new ArrayList<>(rockPoolSize);
-      for (int i = 0; i < rockPoolSize; i++) {
-         Rock rock = new Rock(game.getAssetManager(), gridCellSizePixels);
-         rocks.add(rock);
-         gameArea.addActor(rock);
-      }
-
-      gameArea.addActor(player);
-      gameArea.addActor(goal);
       gameArea.setPosition(gridCellSizePixels * SIDE_PADDING_CELLS, gridCellSizePixels * BOTTOM_PADDING_CELLS);
       stage.addActor(gameArea);
+
+      gameArea.addActor(statusText);
       ImageButton backButton = createBackButton();
       stage.addActor(backButton);
 
-      world = new GameWorld(LEVEL_SIZE, rocks, player, goal);
+      world = new GameWorld(gameArea, game.getAssetManager());
    }
 
    private ImageButton createBackButton() {
-      ImageButton backButton = ButtonFactory.createBackButton(game.getAssetManager(), new ActorGestureListener() {
+      return ButtonFactory.createBackButton(game.getAssetManager(), new ActorGestureListener() {
          @Override
          public void tap(InputEvent event, float x, float y, int count, int button) {
             super.tap(event, x, y, count, button);
             gameOver();
          }
       });
-      return backButton;
    }
 
    @Override
@@ -195,7 +166,7 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    protected void checkLevelCompleted() {
       if (world.isSolved()) {
          onLevelCompleted();
-         world.createNewLevel(LEVEL_SIZE);
+         world.createNewLevel();
          lastMoveDirection = null;
       }
    }
