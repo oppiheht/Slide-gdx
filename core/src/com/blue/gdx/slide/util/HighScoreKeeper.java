@@ -29,7 +29,11 @@ public class HighScoreKeeper {
       preferences.flush();
    }
 
-   public void infiniteLevelCompleted() {
+   /**
+    * Called on each level completed in infinite mode, not on game over screen.
+    */
+   public void infiniteLevelCompleted(int score) {
+      updateHighScore(score, INFINITE_LEVELS_COMPLETED_KEY);
       addToAllModesLevelsCompleted(1);
       preferences.flush();
    }

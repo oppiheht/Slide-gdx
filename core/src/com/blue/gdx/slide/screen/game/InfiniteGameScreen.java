@@ -26,7 +26,7 @@ public class InfiniteGameScreen extends SlideGameScreen {
    @Override
    protected void onLevelCompleted() {
       score++;
-      game.getHighScoreKeeper().infiniteLevelCompleted();
+      game.getHighScoreKeeper().infiniteLevelCompleted(score);
    }
 
    @Override
