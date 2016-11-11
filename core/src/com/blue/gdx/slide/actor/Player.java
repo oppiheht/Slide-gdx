@@ -43,6 +43,7 @@ public class Player extends SlideActor {
 
    public void setStartPosition(int x, int y) {
       setRotation(0);
+      clearActions();
       addAction(Actions.sequence(Actions.moveTo(x * size, y * size), Actions.alpha(0), Actions.fadeIn(2)));
       worldX = x;
       worldY = y;
