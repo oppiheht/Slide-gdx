@@ -27,11 +27,12 @@ public class GameWorld {
 
    public GameWorld(Group actorGroup, AssetManager assetManager) {
       int gridCellSizePixels = Gdx.graphics.getWidth() / WORLD_WIDTH_CELLS;
+      int worldCenterXY = gridCellSizePixels * LEVEL_SIZE / 2;
 
       int rockPoolSize = LEVEL_SIZE * LEVEL_SIZE / 2;
       rocks = new ArrayList<>(rockPoolSize);
       for (int i = 0; i < rockPoolSize; i++) {
-         Rock rock = new Rock(assetManager, gridCellSizePixels);
+         Rock rock = new Rock(assetManager, gridCellSizePixels, worldCenterXY, worldCenterXY);
          rocks.add(rock);
          actorGroup.addActor(rock);
       }
@@ -52,7 +53,7 @@ public class GameWorld {
          rocks.get(i).setPosition(node.getX(), node.getY());
       }
       for (; i < rocks.size(); i++) {
-         rocks.get(i).hide();
+         rocks.get(i).setVisible(false);
       }
 
       player.setStartPosition(level.getStartNode().getX(), level.getStartNode().getY());
