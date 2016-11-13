@@ -17,7 +17,7 @@ public class PerfectionistGameScreen extends SlideGameScreen {
 
    @Override
    protected String getStatusText() {
-      return "Score: "+score+"\nMoves: "+moves;
+      return "Score: "+score+"\nMoves Left: "+ (world.getSolutionLength() - moves);
    }
 
    @Override
