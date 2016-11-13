@@ -73,4 +73,8 @@ public class GameWorld {
       Node newPosition = Solver.slideDirection(direction, level, level.getNodeAt(player.getWorldX(), player.getWorldY()));
       player.setPosition(newPosition.getX(), newPosition.getY());
    }
+
+   public void resetPlayer() {
+      player.setPosition(level.getStartNode().getX(), level.getStartNode().getY());
+   }
 }

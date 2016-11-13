@@ -25,6 +25,19 @@ public class ButtonFactory {
       return backButton;
    }
 
+   public static ImageButton createResetButton(AssetManager assetManager, ActorGestureListener listener) {
+      ImageButton backButton = new ImageButton(
+            new TextureRegionDrawable(
+                  new TextureRegion(assetManager.get(SlideAssetManager.RESETBUTTON, Texture.class))),
+            new TextureRegionDrawable(
+                  new TextureRegion(assetManager.get(SlideAssetManager.RESETBUTTON, Texture.class)))
+      );
+      backButton.setWidth(Gdx.graphics.getWidth() * 0.3f);
+      backButton.setPosition(Gdx.graphics.getWidth() * 0.8f, Gdx.graphics.getHeight() * 0.05f, Align.center);
+      backButton.addListener(listener);
+      return backButton;
+   }
+
    public static ImageButton createStartScreenButton(Texture texture, float height, ActorGestureListener listener) {
       ImageButton imageButton = new ImageButton(
             new TextureRegionDrawable(

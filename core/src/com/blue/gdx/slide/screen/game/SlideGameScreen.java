@@ -78,6 +78,11 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       ImageButton backButton = createBackButton();
       stage.addActor(backButton);
 
+      if (showResetButton()) {
+         ImageButton resetButton = createResetButton();
+         stage.addActor(resetButton);
+      }
+
       world = new GameWorld(gameArea, game.getAssetManager());
    }
 
@@ -87,6 +92,18 @@ public abstract class SlideGameScreen extends ScreenAdapter {
          public void tap(InputEvent event, float x, float y, int count, int button) {
             super.tap(event, x, y, count, button);
             gameOver();
+         }
+      });
+   }
+
+   private ImageButton createResetButton() {
+      return ButtonFactory.createResetButton(game.getAssetManager(), new ActorGestureListener() {
+         @Override
+         public void tap(InputEvent event, float x, float y, int count, int button) {
+            super.tap(event, x, y, count, button);
+            world.resetPlayer();
+            lastMoveDirection = null;
+            onPlayerMove();
          }
       });
    }
@@ -120,6 +137,8 @@ public abstract class SlideGameScreen extends ScreenAdapter {
    protected abstract String getStatusText();
 
    protected abstract void updateScoreKeeper();
+
+   protected abstract boolean showResetButton();
 
    protected void gameOver() {
       updateScoreKeeper();

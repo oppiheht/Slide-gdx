@@ -45,6 +45,11 @@ public class TimedGameScreen extends SlideGameScreen {
    }
 
    @Override
+   protected boolean showResetButton() {
+      return true;
+   }
+
+   @Override
    protected String getStatusText() {
       return "Time Left:  " + formatTime(timer) + 
             "\nScore: " + score;

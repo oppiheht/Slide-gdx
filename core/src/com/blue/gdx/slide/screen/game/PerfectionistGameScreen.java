@@ -39,4 +39,9 @@ public class PerfectionistGameScreen extends SlideGameScreen {
       score++;
    }
 
+   @Override
+   protected boolean showResetButton() {
+      return false;
+   }
+
 }

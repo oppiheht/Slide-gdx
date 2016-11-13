@@ -26,7 +26,7 @@ public class TouchInputHandler implements InputHandler {
    }
 
    private Direction handleScreenEndTouch() {
-      //System.out.println("Screen end touch at "+currentTouch);
+      System.out.println("Screen end touch at "+currentTouch);
       screenIsTouched = false;
       float xDelta = currentTouch.x - startTouch.x;
       float yDelta = currentTouch.y - startTouch.y;
@@ -54,8 +54,10 @@ public class TouchInputHandler implements InputHandler {
    }
 
    private void handleNewScreenTouch() {
-      startTouch = new Vector2(Gdx.input.getX(), Gdx.input.getY());
-      screenIsTouched = true;
+      if (Gdx.input.getY() < Gdx.graphics.getHeight() * 0.9f) {
+         startTouch = new Vector2(Gdx.input.getX(), Gdx.input.getY());
+         screenIsTouched = true;
+      }
    }
    
 }

@@ -34,4 +34,9 @@ public class InfiniteGameScreen extends SlideGameScreen {
       //nothing, score keeper is updated on each level completed
    }
 
+   @Override
+   protected boolean showResetButton() {
+      return true;
+   }
+
 }
