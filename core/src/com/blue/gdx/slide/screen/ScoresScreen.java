@@ -52,12 +52,12 @@ public class ScoresScreen extends ScreenAdapter {
    private StatusText createScoreText() {
       HighScoreKeeper.Scores scores = game.getHighScoreKeeper().getHighScores();
       StatusText text = new StatusText(game.getAssetManager());
-      text.setText("Timed: "+ scores.timed +
-            "\nInfinite: " + scores.infinite +
-            "\nPerfect: " + scores.perfect +
-            "\n\nGems Collected: " + scores.total
+      text.setText("Timed:                             "+ scores.timed +
+            "\nInfinite:                              " + scores.infinite +
+            "\nPerfect:                              " + scores.perfect +
+            "\n\nAstronauts Saved:    " + scores.total
       );
-      text.setPosition(Gdx.graphics.getWidth() * 0.2f, Gdx.graphics.getHeight() * 0.7f, Align.center);
+      text.setPosition(Gdx.graphics.getWidth() * 0.1f, Gdx.graphics.getHeight() * 0.7f, Align.center);
       text.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(2)));
       return text;
    }
