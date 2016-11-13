@@ -1,7 +1,9 @@
 Todo:
 -------
 Back-to-start button in timed + infinite mode, or stop producing levels where you can get stuck
-back button on game over screen
+variable moves to complete levels (11-14)
+rename "back" button to "quit" while in a game mode
+align high scores into tables
 
 Extra:
 -------
