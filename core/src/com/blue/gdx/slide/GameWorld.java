@@ -18,6 +18,7 @@ import java.util.List;
 public class GameWorld {
 
    public static final int LEVEL_SIZE = 12;
+   public static final int LEVEL_DIFFICULTY = 13;
    public static final int WORLD_WIDTH_CELLS = LEVEL_SIZE + 1;
 
    private Level level;
@@ -46,7 +47,7 @@ public class GameWorld {
    }
 
    public void createNewLevel() {
-      level = SolvableLevelFactory.newSolvableLevel(LEVEL_SIZE, LEVEL_SIZE);
+      level = SolvableLevelFactory.newSolvableLevel(LEVEL_SIZE, LEVEL_DIFFICULTY);
       int i = 0;
       for (; i < level.getWalls().size(); i++) {
          Node node = level.getWalls().get(i);
