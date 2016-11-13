@@ -41,10 +41,10 @@ public class StartScreen extends ScreenAdapter {
       Image logo = new Image(gameLogoTexture);
       logo.setSize(Gdx.graphics.getWidth() * 0.8f, Gdx.graphics.getHeight() * 0.2f);
       logo.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() * 0.77f, Align.center);
-      
+
+      ImageButton playInfiniteButton = createPlayInfiniteButton();
       ImageButton playTimedButton = createPlayTimedButton();
       ImageButton playPerfectionistButton = createPlayPerfectionistButton();
-      ImageButton playInfiniteButton = createPlayInfiniteButton();
       ImageButton scoresButton = createScoresButton();
             
       stage.addActor(background);
@@ -52,19 +52,35 @@ public class StartScreen extends ScreenAdapter {
       stage.addActor(logo);
       logo.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(2)));
       stage.addActor(playTimedButton);
+      stage.addActor(playInfiniteButton);
+      playInfiniteButton.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(2)));
       playTimedButton.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(2)));
       stage.addActor(playPerfectionistButton);
       playPerfectionistButton.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(2)));
-      stage.addActor(playInfiniteButton);
-      playInfiniteButton.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(2)));
       stage.addActor(scoresButton);
       scoresButton.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(2)));
+   }
+
+   private ImageButton createPlayInfiniteButton() {
+      ImageButton playInfiniteButton = ButtonFactory.createStartScreenButton(
+            game.getAssetManager().get(SlideAssetManager.PLAYINFINITEBUTTON, Texture.class),
+            Gdx.graphics.getHeight() * 0.5f,
+            new ActorGestureListener() {
+               @Override
+               public void tap(InputEvent event, float x, float y, int count, int button) {
+                  super.tap(event, x, y, count, button);
+                  game.setScreen(new InfiniteGameScreen(game));
+                  dispose();
+               }
+            }
+      );
+      return playInfiniteButton;
    }
 
    private ImageButton createPlayTimedButton() {
       ImageButton playTimedButton = ButtonFactory.createStartScreenButton(
             game.getAssetManager().get(SlideAssetManager.PLAYTIMEDBUTTON, Texture.class),
-            Gdx.graphics.getHeight() * 0.5f,
+            Gdx.graphics.getHeight() * 0.38f,
             new ActorGestureListener() {
                @Override
                public void tap(InputEvent event, float x, float y, int count, int button) {
@@ -80,7 +96,7 @@ public class StartScreen extends ScreenAdapter {
    private ImageButton createPlayPerfectionistButton() {
       ImageButton playPerfectionistButton = ButtonFactory.createStartScreenButton(
             game.getAssetManager().get(SlideAssetManager.PLAYPERFECTIONISTBUTTON, Texture.class),
-            Gdx.graphics.getHeight() * 0.38f,
+            Gdx.graphics.getHeight() * 0.26f,
             new ActorGestureListener() {
                @Override
                public void tap(InputEvent event, float x, float y, int count, int button) {
@@ -91,22 +107,6 @@ public class StartScreen extends ScreenAdapter {
             }
       );
       return playPerfectionistButton;
-   }
-   
-   private ImageButton createPlayInfiniteButton() {
-      ImageButton playInfiniteButton = ButtonFactory.createStartScreenButton(
-            game.getAssetManager().get(SlideAssetManager.PLAYINFINITEBUTTON, Texture.class),
-            Gdx.graphics.getHeight() * 0.26f,
-            new ActorGestureListener() {
-               @Override
-               public void tap(InputEvent event, float x, float y, int count, int button) {
-                  super.tap(event, x, y, count, button);
-                  game.setScreen(new InfiniteGameScreen(game));
-                  dispose();
-               }
-            }
-      );
-      return playInfiniteButton;
    }
 
    private ImageButton createScoresButton() {
