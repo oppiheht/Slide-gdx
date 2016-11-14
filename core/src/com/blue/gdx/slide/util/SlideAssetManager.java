@@ -20,6 +20,7 @@ public class SlideAssetManager extends AssetManager {
 
    public static String BACKBUTTON =  assetLocation+"backButton.png";
    public static String RESETBUTTON =  assetLocation+"resetButton.png";
+   public static String QUITBUTTON =  assetLocation+"quitButton.png";
 
    public static final String[] ROCKS = {
             assetLocation+"asteroid1.png",
@@ -28,7 +29,7 @@ public class SlideAssetManager extends AssetManager {
    };
    public static String PLAYER =  assetLocation+"player.png";
    public static String GOAL =  assetLocation+"goal.png";
-                 
+
    
    public void loadAllAssetsBlocking() {
       load(FONTFILE, BitmapFont.class);
@@ -40,6 +41,7 @@ public class SlideAssetManager extends AssetManager {
       load(SCORESBUTTON, Texture.class);
       load(BACKBUTTON, Texture.class);
       load(RESETBUTTON, Texture.class);
+      load(QUITBUTTON, Texture.class);
       for (String s : ROCKS) {
          load(s, Texture.class);
       }

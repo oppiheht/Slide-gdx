@@ -75,8 +75,8 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       stage.addActor(gameArea);
 
       gameArea.addActor(statusText);
-      ImageButton backButton = createBackButton();
-      stage.addActor(backButton);
+      ImageButton quitButton = createQuitButton();
+      stage.addActor(quitButton);
 
       if (showResetButton()) {
          ImageButton resetButton = createResetButton();
@@ -86,8 +86,8 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       world = new GameWorld(gameArea, game.getAssetManager());
    }
 
-   private ImageButton createBackButton() {
-      return ButtonFactory.createBackButton(game.getAssetManager(), new ActorGestureListener() {
+   private ImageButton createQuitButton() {
+      return ButtonFactory.createQuitButton(game.getAssetManager(), new ActorGestureListener() {
          @Override
          public void tap(InputEvent event, float x, float y, int count, int button) {
             super.tap(event, x, y, count, button);

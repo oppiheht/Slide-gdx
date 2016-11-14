@@ -38,6 +38,19 @@ public class ButtonFactory {
       return backButton;
    }
 
+   public static ImageButton createQuitButton(AssetManager assetManager, ActorGestureListener listener) {
+      ImageButton backButton = new ImageButton(
+            new TextureRegionDrawable(
+                  new TextureRegion(assetManager.get(SlideAssetManager.QUITBUTTON, Texture.class))),
+            new TextureRegionDrawable(
+                  new TextureRegion(assetManager.get(SlideAssetManager.QUITBUTTON, Texture.class)))
+      );
+      backButton.setWidth(Gdx.graphics.getWidth() * 0.3f);
+      backButton.setPosition(Gdx.graphics.getWidth() / 5, Gdx.graphics.getHeight() * 0.05f, Align.center);
+      backButton.addListener(listener);
+      return backButton;
+   }
+
    public static ImageButton createStartScreenButton(Texture texture, float height, ActorGestureListener listener) {
       ImageButton imageButton = new ImageButton(
             new TextureRegionDrawable(
