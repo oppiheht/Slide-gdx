@@ -12,7 +12,9 @@ public class PerfectionistGameScreen extends SlideGameScreen {
 
    @Override
    protected void renderUpdate(float delta) {
-      //Actually nothing to do for perfectionist mode
+      if (moves >= world.getSolutionLength()) {
+         gameOver();
+      }
    }
 
    @Override
@@ -23,9 +25,6 @@ public class PerfectionistGameScreen extends SlideGameScreen {
    @Override
    protected void onPlayerMove() {
       moves++;
-      if (moves > world.getSolutionLength()) {
-         gameOver();
-      }
    }
 
    @Override
