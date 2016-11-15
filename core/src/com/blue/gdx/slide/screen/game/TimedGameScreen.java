@@ -54,5 +54,15 @@ public class TimedGameScreen extends SlideGameScreen {
       return "Time Left:  " + formatTime(timer) + 
             "\nScore: " + score;
    }
-   
+
+
+   protected String formatTime(float seconds) {
+      int minutes = (int)seconds / 60;
+      int remSeconds = (int)seconds % 60;
+      if (seconds < 10) {
+         return String.format("%1.2f", seconds);
+      }
+      String zeroPadding = remSeconds < 10 ? "0" : "";
+      return minutes + ":" +zeroPadding + remSeconds;
+   }
 }

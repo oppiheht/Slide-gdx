@@ -175,13 +175,6 @@ public abstract class SlideGameScreen extends ScreenAdapter {
       onPlayerMove();
    }
 
-   protected String formatTime(float seconds) {
-      int minutes = (int)seconds / 60;
-      int remSeconds = (int)seconds % 60;
-      String zeroPadding = remSeconds < 10 ? "0" : "";
-      return minutes + ":" +zeroPadding + remSeconds;
-   }
-   
    protected void checkLevelCompleted() {
       if (world.isSolved()) {
          onLevelCompleted();
