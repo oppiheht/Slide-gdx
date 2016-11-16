@@ -53,14 +53,13 @@ public class GameOverScreen extends ScreenAdapter {
    }
 
    private ImageButton createBackButton() {
-      ImageButton backButton = ButtonFactory.createBackButton(game.getAssetManager(), new ActorGestureListener() {
+      return ButtonFactory.createBackButton(game.getAssetManager(), new ActorGestureListener() {
          @Override
          public void tap(InputEvent event, float x, float y, int count, int button) {
             super.tap(event, x, y, count, button);
             backToHome();
          }
       });
-      return backButton;
    }
 
    protected void queryBackKeyPressed() {

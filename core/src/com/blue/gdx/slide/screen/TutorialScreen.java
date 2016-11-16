@@ -6,6 +6,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.utils.Align;
@@ -33,10 +34,16 @@ public class TutorialScreen extends ScreenAdapter {
 
       CenteredText tutorialText = createTutorialText();
       ImageButton confirmationButton = createConfirmationButton();
+      ImageButton backButton = createBackButton();
 
       stage.addActor(new Background(game.getAssetManager()));
       stage.addActor(tutorialText);
       stage.addActor(confirmationButton);
+      stage.addActor(backButton);
+
+      tutorialText.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1)));
+      confirmationButton.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1)));
+      backButton.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1)));
    }
 
    private CenteredText createTutorialText() {
@@ -66,11 +73,25 @@ public class TutorialScreen extends ScreenAdapter {
       queryBackKeyPressed();
    }
 
+   private ImageButton createBackButton() {
+      return ButtonFactory.createBackButton(game.getAssetManager(), new ActorGestureListener() {
+         @Override
+         public void tap(InputEvent event, float x, float y, int count, int button) {
+            super.tap(event, x, y, count, button);
+            backToHome();
+         }
+      });
+   }
 
    protected void queryBackKeyPressed() {
       if (Gdx.input.isKeyJustPressed(Input.Keys.BACK)) {
-         game.setScreen(new StartScreen(game));
+         backToHome();
       }
+   }
+
+   private void backToHome() {
+      game.setScreen(new StartScreen(game));
+      dispose();
    }
 
    @Override
