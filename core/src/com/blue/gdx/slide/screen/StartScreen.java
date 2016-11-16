@@ -69,7 +69,7 @@ public class StartScreen extends ScreenAdapter {
                @Override
                public void tap(InputEvent event, float x, float y, int count, int button) {
                   super.tap(event, x, y, count, button);
-                  game.setScreen(new InfiniteGameScreen(game));
+                  game.setScreen(new TutorialScreen(game, new InfiniteGameScreen(game)));
                   dispose();
                }
             }
@@ -85,7 +85,7 @@ public class StartScreen extends ScreenAdapter {
                @Override
                public void tap(InputEvent event, float x, float y, int count, int button) {
                   super.tap(event, x, y, count, button);
-                  game.setScreen(new TimedGameScreen(game));
+                  game.setScreen(new TutorialScreen(game, new TimedGameScreen(game)));
                   dispose();
                }
             }
@@ -101,7 +101,7 @@ public class StartScreen extends ScreenAdapter {
                @Override
                public void tap(InputEvent event, float x, float y, int count, int button) {
                   super.tap(event, x, y, count, button);
-                  game.setScreen(new PerfectionistGameScreen(game));
+                  game.setScreen(new TutorialScreen(game, new PerfectionistGameScreen(game)));
                   dispose();
                }
             }

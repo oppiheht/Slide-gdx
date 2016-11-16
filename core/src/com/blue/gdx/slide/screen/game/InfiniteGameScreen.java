@@ -39,4 +39,9 @@ public class InfiniteGameScreen extends SlideGameScreen {
       return true;
    }
 
+   @Override
+   public String getTutorialText() {
+      return "Swipe to move\n\nSave them all";
+   }
+
 }

@@ -55,6 +55,13 @@ public class TimedGameScreen extends SlideGameScreen {
             "\nScore: " + score;
    }
 
+   @Override
+   public String getTutorialText() {
+      return "Swipe to move\n\n" +
+            "You have 90 seconds\n" +
+            "7 second bonuses\n\n" +
+            "Save them all";
+   }
 
    protected String formatTime(float seconds) {
       int minutes = (int)seconds / 60;

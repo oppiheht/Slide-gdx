@@ -43,4 +43,11 @@ public class PerfectionistGameScreen extends SlideGameScreen {
       return false;
    }
 
+   @Override
+   public String getTutorialText() {
+      return "Swipe to move\n\n" +
+            "No mistakes\n\n" +
+            "Save them all";
+   }
+
 }

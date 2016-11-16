@@ -8,23 +8,22 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.blue.gdx.slide.SlideGame;
 import com.blue.gdx.slide.actor.Background;
 import com.blue.gdx.slide.actor.CenteredText;
+import com.blue.gdx.slide.screen.game.SlideGameScreen;
 import com.blue.gdx.slide.util.ButtonFactory;
 
-
-public class GameOverScreen extends ScreenAdapter {
-
+public class TutorialScreen extends ScreenAdapter {
    private final SlideGame game;
    private Stage stage;
-   private String text;
+   private SlideGameScreen screenToDisplay;
 
-
-   public GameOverScreen(SlideGame game, String text) {
+   public TutorialScreen(SlideGame game, SlideGameScreen screenToDisplay) {
       this.game = game;
-      this.text = text;
+      this.screenToDisplay = screenToDisplay;
    }
 
    @Override
@@ -32,14 +31,29 @@ public class GameOverScreen extends ScreenAdapter {
       stage = new Stage(new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
       Gdx.input.setInputProcessor(stage);
 
-      CenteredText gameOverText = new CenteredText(game.getAssetManager(), text);
-      gameOverText.setPosition(Gdx.graphics.getWidth() * .05f, Gdx.graphics.getHeight() / 2);
-
-      ImageButton backButton = createBackButton();
+      CenteredText tutorialText = createTutorialText();
+      ImageButton confirmationButton = createConfirmationButton();
 
       stage.addActor(new Background(game.getAssetManager()));
-      stage.addActor(gameOverText);
-      stage.addActor(backButton);
+      stage.addActor(tutorialText);
+      stage.addActor(confirmationButton);
+   }
+
+   private CenteredText createTutorialText() {
+      CenteredText text = new CenteredText(game.getAssetManager(), screenToDisplay.getTutorialText());
+      text.setPosition(Gdx.graphics.getWidth() * 0.05f, Gdx.graphics.getHeight() * 0.65f, Align.center);
+      return text;
+   }
+
+   private ImageButton createConfirmationButton() {
+      ImageButton confirmationButton = ButtonFactory.createConfirmationButton(game.getAssetManager(), new ActorGestureListener() {
+         @Override
+         public void tap(InputEvent event, float x, float y, int count, int button) {
+            super.tap(event, x, y, count, button);
+            game.setScreen(screenToDisplay);
+         }
+      });
+      return confirmationButton;
    }
 
    @Override
@@ -52,26 +66,11 @@ public class GameOverScreen extends ScreenAdapter {
       queryBackKeyPressed();
    }
 
-   private ImageButton createBackButton() {
-      ImageButton backButton = ButtonFactory.createBackButton(game.getAssetManager(), new ActorGestureListener() {
-         @Override
-         public void tap(InputEvent event, float x, float y, int count, int button) {
-            super.tap(event, x, y, count, button);
-            backToHome();
-         }
-      });
-      return backButton;
-   }
 
    protected void queryBackKeyPressed() {
       if (Gdx.input.isKeyJustPressed(Input.Keys.BACK)) {
-         backToHome();
+         game.setScreen(new StartScreen(game));
       }
-   }
-
-   private void backToHome() {
-      game.setScreen(new StartScreen(game));
-      dispose();
    }
 
    @Override

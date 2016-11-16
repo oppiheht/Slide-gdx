@@ -19,36 +19,45 @@ public class ButtonFactory {
             new TextureRegionDrawable(
                   new TextureRegion(assetManager.get(SlideAssetManager.BACKBUTTON, Texture.class)))
       );
-      backButton.setWidth(Gdx.graphics.getWidth() * 0.3f);
-      backButton.setPosition(Gdx.graphics.getWidth() / 5, Gdx.graphics.getHeight() * 0.05f, Align.center);
+      positionInBottomLeft(backButton);
       backButton.addListener(listener);
       return backButton;
    }
 
    public static ImageButton createResetButton(AssetManager assetManager, ActorGestureListener listener) {
-      ImageButton backButton = new ImageButton(
+      ImageButton resetButton = new ImageButton(
             new TextureRegionDrawable(
                   new TextureRegion(assetManager.get(SlideAssetManager.RESETBUTTON, Texture.class))),
             new TextureRegionDrawable(
                   new TextureRegion(assetManager.get(SlideAssetManager.RESETBUTTON, Texture.class)))
       );
-      backButton.setWidth(Gdx.graphics.getWidth() * 0.3f);
-      backButton.setPosition(Gdx.graphics.getWidth() * 0.8f, Gdx.graphics.getHeight() * 0.05f, Align.center);
-      backButton.addListener(listener);
-      return backButton;
+      positionInBottomRight(resetButton);
+      resetButton.addListener(listener);
+      return resetButton;
+   }
+
+   public static ImageButton createConfirmationButton(AssetManager assetManager, ActorGestureListener listener) {
+      ImageButton confirmationButton = new ImageButton(
+            new TextureRegionDrawable(
+                  new TextureRegion(assetManager.get(SlideAssetManager.CONFIRMATIONBUTTON, Texture.class))),
+            new TextureRegionDrawable(
+                  new TextureRegion(assetManager.get(SlideAssetManager.CONFIRMATIONBUTTON, Texture.class)))
+      );
+      positionInBottomRight(confirmationButton);
+      confirmationButton.addListener(listener);
+      return confirmationButton;
    }
 
    public static ImageButton createQuitButton(AssetManager assetManager, ActorGestureListener listener) {
-      ImageButton backButton = new ImageButton(
+      ImageButton quitButton = new ImageButton(
             new TextureRegionDrawable(
                   new TextureRegion(assetManager.get(SlideAssetManager.QUITBUTTON, Texture.class))),
             new TextureRegionDrawable(
                   new TextureRegion(assetManager.get(SlideAssetManager.QUITBUTTON, Texture.class)))
       );
-      backButton.setWidth(Gdx.graphics.getWidth() * 0.3f);
-      backButton.setPosition(Gdx.graphics.getWidth() / 5, Gdx.graphics.getHeight() * 0.05f, Align.center);
-      backButton.addListener(listener);
-      return backButton;
+      positionInBottomLeft(quitButton);
+      quitButton.addListener(listener);
+      return quitButton;
    }
 
    public static ImageButton createStartScreenButton(Texture texture, float height, ActorGestureListener listener) {
@@ -62,5 +71,15 @@ public class ButtonFactory {
       imageButton.setPosition(Gdx.graphics.getWidth() / 2, height, Align.center);
       imageButton.addListener(listener);
       return imageButton;
+   }
+
+   private static void positionInBottomLeft(ImageButton button) {
+      button.setWidth(Gdx.graphics.getWidth() * 0.3f);
+      button.setPosition(Gdx.graphics.getWidth() / 5, Gdx.graphics.getHeight() * 0.05f, Align.center);
+   }
+
+   private static void positionInBottomRight(ImageButton button) {
+      button.setWidth(Gdx.graphics.getWidth() * 0.3f);
+      button.setPosition(Gdx.graphics.getWidth() * 0.8f, Gdx.graphics.getHeight() * 0.05f, Align.center);
    }
 }

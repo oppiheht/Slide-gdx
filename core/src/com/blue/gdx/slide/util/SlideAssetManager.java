@@ -21,6 +21,7 @@ public class SlideAssetManager extends AssetManager {
    public static String BACKBUTTON =  assetLocation+"backButton.png";
    public static String RESETBUTTON =  assetLocation+"resetButton.png";
    public static String QUITBUTTON =  assetLocation+"quitButton.png";
+   public static String CONFIRMATIONBUTTON = assetLocation+"confirmationButton.png";
 
    public static final String[] ROCKS = {
             assetLocation+"asteroid1.png",
@@ -42,6 +43,7 @@ public class SlideAssetManager extends AssetManager {
       load(BACKBUTTON, Texture.class);
       load(RESETBUTTON, Texture.class);
       load(QUITBUTTON, Texture.class);
+      load(CONFIRMATIONBUTTON, Texture.class);
       for (String s : ROCKS) {
          load(s, Texture.class);
       }

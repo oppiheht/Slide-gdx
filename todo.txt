@@ -5,26 +5,6 @@ signed APK
 feedback on RC1
 release!
 
-Rules Text:
--------
-Infinite:
-Your astronauts are lost in space!
-Swipe to move.
-Save as many astronauts as you can!
-
-Timed:
-Your astronauts are running out of time!
-Swipe to move.
-You have 1:30 to save as many as you can.
-You get 7 bonus seconds after each astronaut saved.
-Save as many astronauts as you can!
-
-Perfect:
-Your astronauts are low on fuel!
-Swipe to move.
-You must save them in as few moves as possible. Plan carefully!
-Save as many astronauts as you can!
-
 Extra:
 -------
 music

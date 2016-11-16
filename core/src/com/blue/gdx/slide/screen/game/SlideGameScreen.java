@@ -140,6 +140,8 @@ public abstract class SlideGameScreen extends ScreenAdapter {
 
    protected abstract boolean showResetButton();
 
+   public abstract String getTutorialText();
+
    protected void gameOver() {
       updateScoreKeeper();
       game.setScreen(new GameOverScreen(game, getGameOverText()));

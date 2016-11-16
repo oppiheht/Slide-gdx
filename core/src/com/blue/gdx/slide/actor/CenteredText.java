@@ -9,12 +9,12 @@ import com.badlogic.gdx.utils.Align;
 import com.blue.gdx.slide.util.SlideAssetManager;
 
 
-public class GameOverText extends Actor {
+public class CenteredText extends Actor {
 
    private String text;
    private BitmapFont font;
 
-   public GameOverText(AssetManager assetManager, String text) {
+   public CenteredText(AssetManager assetManager, String text) {
       this.text = text;
       font = assetManager.get(SlideAssetManager.FONTFILE, BitmapFont.class);
       font.getData().setScale(Gdx.graphics.getDensity());
@@ -26,7 +26,7 @@ public class GameOverText extends Actor {
                 batch,
                 text,
                 Gdx.graphics.getWidth() * 0.05f,
-                Gdx.graphics.getHeight() / 2,
+                Gdx.graphics.getHeight() * 0.6f,
                 Gdx.graphics.getWidth() * 0.9f,
                 Align.center,
                 true);
