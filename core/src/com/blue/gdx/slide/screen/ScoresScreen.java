@@ -57,7 +57,6 @@ public class ScoresScreen extends ScreenAdapter {
             String.format("\nPerfect:%33d", scores.perfect) +
             String.format("\n\nAstronauts Saved:%6d", scores.total)
       );
-      System.out.println(scores.total);
       text.setPosition(Gdx.graphics.getWidth() * 0.1f, Gdx.graphics.getHeight() * 0.7f, Align.center);
       text.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(2)));
       return text;
