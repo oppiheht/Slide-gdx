@@ -18,6 +18,7 @@ android {
         applicationId "com.blue.gdx.slide"
         minSdkVersion 8
         targetSdkVersion 23
+        versionCode 2
     }
 }
 
